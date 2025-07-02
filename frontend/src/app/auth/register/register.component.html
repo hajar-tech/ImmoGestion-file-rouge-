@@ -1,0 +1,37 @@
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-marine-blue to-anthracite-grey p-4">
+  <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
+    <h2 class="text-3xl font-bold text-center text-marine-blue mb-8">Créer un Compte ImmoGestion</h2>
+    <form>
+      <div class="mb-6">
+        <label for="username" class="block text-anthracite-grey text-sm font-semibold mb-2">Nom d'utilisateur</label>
+        <input type="text" id="username" placeholder="Choisissez un nom d'utilisateur"
+               class="shadow-sm appearance-none border border-pearl-grey rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-light-blue focus:border-transparent">
+      </div>
+      <div class="mb-6">
+        <label for="password" class="block text-anthracite-grey text-sm font-semibold mb-2">Mot de passe</label>
+        <input type="password" id="password" placeholder="Choisissez un mot de passe"
+               class="shadow-sm appearance-none border border-pearl-grey rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-light-blue focus:border-transparent">
+      </div>
+      <div class="mb-6">
+        <label for="role" class="block text-anthracite-grey text-sm font-semibold mb-2">Rôle</label>
+        <select id="role"
+                class="shadow-sm appearance-none border border-pearl-grey rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-light-blue focus:border-transparent">
+          <option value="" disabled selected>Sélectionnez un rôle</option>
+          <option value="tenant">Locataire</option>
+          <option value="employee">Employé</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <button type="submit"
+              class="w-full bg-soft-green hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition-colors duration-300">
+        S'inscrire
+      </button>
+    </form>
+    <p class="text-center text-gray-600 text-sm mt-6">
+      Déjà un compte ? <a routerLink="/login" class="text-light-blue hover:underline">Connectez-vous ici</a>
+    </p>
+    <p class="text-center text-gray-600 text-sm mt-6">
+      Déjà un compte ? <a routerLink="/login" class="text-light-blue hover:underline">Connectez-vous ici</a>
+    </p>
+  </div>
+</div>
