@@ -32,8 +32,8 @@ public class AuthService {
 
         //créer user dynamiquement selon le role
         switch (registerRequest.role().toUpperCase()){
-            case "Employe" -> utilisateur = new Employe();
-            case "Locataire" -> utilisateur = new Locataire();
+            case "EMPLOYE" -> utilisateur = new Employe();
+            case "LOCATAIRE" -> utilisateur = new Locataire();
             default -> throw new RuntimeException("Le role est invalide !!");
 
         }
