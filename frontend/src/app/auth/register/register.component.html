@@ -1,37 +1,78 @@
-<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-marine-blue to-anthracite-grey p-4">
-  <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
-    <h2 class="text-3xl font-bold text-center text-marine-blue mb-8">Créer un Compte ImmoGestion</h2>
-    <form>
-      <div class="mb-6">
-        <label for="username" class="block text-anthracite-grey text-sm font-semibold mb-2">Nom d'utilisateur</label>
-        <input type="text" id="username" placeholder="Choisissez un nom d'utilisateur"
-               class="shadow-sm appearance-none border border-pearl-grey rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-light-blue focus:border-transparent">
+
+
+
+<section class="  flex items-center justify-center min-h-screen  bg-no-repeat bg-cover" style="background-image: url('/images/bg-register.png');">
+
+<div class="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full">
+  <h2 class="text-2xl font-bold mb-6 text-center">Créer un compte</h2>
+
+  <form [formGroup]="registerForm"  (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- 1ère ligne : Nom + Prénom -->
+    <div class="flex space-x-4">
+      <div class="flex-1">
+        <label for="nom" class="block mb-1 font-medium">Nom</label>
+        <input id="nom" formControlName="nom" name="nom" type="text" placeholder="Votre nom" required
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
-      <div class="mb-6">
-        <label for="password" class="block text-anthracite-grey text-sm font-semibold mb-2">Mot de passe</label>
-        <input type="password" id="password" placeholder="Choisissez un mot de passe"
-               class="shadow-sm appearance-none border border-pearl-grey rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-light-blue focus:border-transparent">
+      <div class="flex-1">
+        <label for="prenom" class="block mb-1 font-medium">Prénom</label>
+        <input id="prenom" formControlName="prenom" name="prenom" type="text" placeholder="Votre prénom" required
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
-      <div class="mb-6">
-        <label for="role" class="block text-anthracite-grey text-sm font-semibold mb-2">Rôle</label>
-        <select id="role"
-                class="shadow-sm appearance-none border border-pearl-grey rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-light-blue focus:border-transparent">
-          <option value="" disabled selected>Sélectionnez un rôle</option>
-          <option value="tenant">Locataire</option>
-          <option value="employee">Employé</option>
-          <option value="admin">Admin</option>
+    </div>
+
+    <!-- 2ème ligne : Téléphone + Carte d'identité -->
+    <div class="flex space-x-4">
+      <div class="flex-1">
+        <label for="numeroTelephone" class="block mb-1 font-medium">Téléphone</label>
+        <input id="numeroTelephone" formControlName="numeroTelephone" name="numeroTelephone" type="tel" placeholder="Ex: +212 6 XX XX XX XX"  required
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div class="flex-1">
+        <label for="carteIdentite" class="block mb-1 font-medium">Carte d'identité</label>
+        <input id="carteIdentite" formControlName="carteIdentite" name="carteIdentite" type="text" placeholder="Ex: AB123456" required
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+    </div>
+
+    <!-- 3ème ligne : Email + Mot de passe -->
+    <div class="flex space-x-4">
+      <div class="flex-1">
+        <label for="email" class="block mb-1 font-medium">Email</label>
+        <input id="email" formControlName="email" name="email" type="email" placeholder="Votre email : aaa@gmail.com"  required
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div class="flex-1">
+        <label for="password" class="block mb-1 font-medium">Mot de passe</label>
+        <input id="password" formControlName="password" name="password" type="password" placeholder="********" required
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+    </div>
+
+    <!-- 4ème ligne : Rôle + bouton submit centré -->
+    <div class="flex space-x-4 items-end">
+      <div class="flex-1">
+        <label for="role" class="block mb-1 font-medium">Rôle</label>
+        <select id="role" formControlName="role" name="role" required
+                class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">Sélectionnez un rôle</option>
+          <option value="LOCATAIRE">Locataire</option>
+          <option value="EMPLOYE">Employe</option>
         </select>
       </div>
-      <button type="submit"
-              class="w-full bg-soft-green hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition-colors duration-300">
-        S'inscrire
-      </button>
-    </form>
-    <p class="text-center text-gray-600 text-sm mt-6">
-      Déjà un compte ? <a routerLink="/login" class="text-light-blue hover:underline">Connectez-vous ici</a>
-    </p>
-    <p class="text-center text-gray-600 text-sm mt-6">
-      Déjà un compte ? <a routerLink="/login" class="text-light-blue hover:underline">Connectez-vous ici</a>
-    </p>
-  </div>
+      <div class="flex-1">
+        <button
+          type="submit"
+          [disabled]="submitting"
+          class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition"
+        >
+          {{ submitting ? 'Inscription...' : 'S’inscrire' }}
+        </button>
+      </div>
+    </div>
+    <div *ngIf="errorMessage" class="text-red-600 mt-4 text-center">{{ errorMessage }}</div>
+
+  </form>
 </div>
+
+</section>
