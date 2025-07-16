@@ -1,6 +1,8 @@
 package com.immoGestion.backend.services.serviceImplementations;
 
+import com.immoGestion.backend.dtos.LogementDTO;
 import com.immoGestion.backend.dtos.LogementViewAdmin;
+import com.immoGestion.backend.mapper.LogementMapper;
 import com.immoGestion.backend.mapper.LogementViewAdminMapper;
 import com.immoGestion.backend.models.Logement;
 import com.immoGestion.backend.repositories.LogementRepository;
@@ -14,16 +16,17 @@ public class LogementImpl implements LogementService {
 
     private final LogementRepository logementRepository;
     private final LogementViewAdminMapper logementViewAdminMapper;
-
-    public LogementImpl(LogementRepository logementRepository , LogementViewAdminMapper logementViewAdminMapper){
+    private final LogementMapper logementMapper;
+    public LogementImpl(LogementMapper logementMapper ,LogementRepository logementRepository , LogementViewAdminMapper logementViewAdminMapper){
         this.logementRepository = logementRepository;
         this.logementViewAdminMapper = logementViewAdminMapper;
+        this.logementMapper = logementMapper;
     }
 
     @Override
-    public String creerLogement(Logement logement) {
-         logementRepository.save(logement);
-        return "logement créer avec success.";
+    public LogementDTO creerLogement(LogementDTO logementDTO) {
+      Logement logement = logementRepository.save( logementMapper.toEntity(logementDTO));
+      return logementMapper.toDto(logement);
     }
 
     @Override
