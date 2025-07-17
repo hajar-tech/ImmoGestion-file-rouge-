@@ -6,6 +6,7 @@ import com.immoGestion.backend.models.Logement;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface LogementService {
@@ -14,5 +15,15 @@ public interface LogementService {
      LogementDTO creerLogement(LogementDTO logementDTO);
 
      //afficher la liste des logements au admin
-   List<LogementViewAdmin>  afficherToutLogements();
+   List<LogementDTO>  getAllLogements();
+
+   Optional<LogementDTO> getLogementById(Long id);
+
+    LogementDTO updateLogement(Long id, LogementDTO logementDTO);
+
+    void deleteLogement(Long id);
+
+    List<LogementDTO> getLogementsByStatus(String statut);
+
+
 }

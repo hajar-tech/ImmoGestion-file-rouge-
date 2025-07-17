@@ -26,9 +26,9 @@ public class LogementController {
        return new  ResponseEntity<>(createdLogement,HttpStatus.CREATED);
     }
 
-    @GetMapping("/getAllToAdmin")
-    public ResponseEntity<List<LogementViewAdmin>> afficherLogementsAdmin(){
-        List<LogementViewAdmin> logementViewAdmins = logementService.afficherToutLogements();
-       return ResponseEntity.ok(logementViewAdmins);
+    @GetMapping("/getAll")
+    public ResponseEntity<List<LogementDTO>> afficherLogements(){
+        List<LogementDTO> logements = logementService.getAllLogements();
+       return new  ResponseEntity<>(logements, HttpStatus.OK);
     }
 }
