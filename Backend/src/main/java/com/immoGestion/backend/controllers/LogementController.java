@@ -4,6 +4,7 @@ import com.immoGestion.backend.dtos.LogementDTO;
 import com.immoGestion.backend.dtos.LogementViewAdmin;
 import com.immoGestion.backend.models.Logement;
 import com.immoGestion.backend.services.serviceInterfaces.LogementService;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +31,12 @@ public class LogementController {
     public ResponseEntity<List<LogementDTO>> afficherLogements(){
         List<LogementDTO> logements = logementService.getAllLogements();
        return new  ResponseEntity<>(logements, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<LogementDTO> afficherLogementById(@PathVariable Long id){
+       return logementService.getLogementById(id)
+               .map(logementDTO -> new ResponseEntity<>(logementDTO, HttpStatus.OK))
+               .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

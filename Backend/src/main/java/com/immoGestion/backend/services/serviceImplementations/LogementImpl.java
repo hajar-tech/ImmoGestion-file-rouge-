@@ -40,7 +40,8 @@ public class LogementImpl implements LogementService {
 
     @Override
     public Optional<LogementDTO> getLogementById(Long id) {
-        return Optional.empty();
+        return logementRepository.findById(id)
+                .map(logementMapper::toDto);
     }
 
     @Override
