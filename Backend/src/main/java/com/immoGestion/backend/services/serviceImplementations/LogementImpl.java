@@ -1,5 +1,6 @@
 package com.immoGestion.backend.services.serviceImplementations;
 
+import com.immoGestion.backend.Enums.StatutLogement;
 import com.immoGestion.backend.dtos.LogementDTO;
 import com.immoGestion.backend.dtos.LogementViewAdmin;
 import com.immoGestion.backend.mapper.LogementMapper;
@@ -46,17 +47,24 @@ public class LogementImpl implements LogementService {
 
     @Override
     public LogementDTO updateLogement(Long id, LogementDTO logementDTO) {
-        return null;
+       return logementRepository.findById(id).map(existLogement -> {
+           logementMapper.updateLogementFromDto(logementDTO , existLogement);
+                Logement updateLogement = logementRepository.save(existLogement);
+              return logementMapper.toDto(updateLogement);
+               }).orElseThrow(() -> new RuntimeException("Logement introuvable !!"));
     }
 
     @Override
     public void deleteLogement(Long id) {
+        logementRepository.deleteById(id);
 
     }
 
     @Override
-    public List<LogementDTO> getLogementsByStatus(String statut) {
-        return List.of();
+    public List<LogementDTO> getLogementsByStatus(StatutLogement statut) {
+        return logementRepository.findByStatut(statut).stream()
+                .map(logementMapper :: toDto)
+                .collect((Collectors.toList()));
     }
 
 //    @Override

@@ -1,5 +1,6 @@
 package com.immoGestion.backend.controllers;
 
+import com.immoGestion.backend.Enums.StatutLogement;
 import com.immoGestion.backend.dtos.LogementDTO;
 import com.immoGestion.backend.dtos.LogementViewAdmin;
 import com.immoGestion.backend.models.Logement;
@@ -38,5 +39,35 @@ public class LogementController {
        return logementService.getLogementById(id)
                .map(logementDTO -> new ResponseEntity<>(logementDTO, HttpStatus.OK))
                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<LogementDTO> modifierLogement (@PathVariable Long id , @RequestBody LogementDTO logementDTO){
+        try{
+            LogementDTO updatedLogement = logementService.updateLogement(id , logementDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (RuntimeException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @DeleteMapping("/{id}")
+    public  ResponseEntity<Void> supprimerLogement (@PathVariable Long id ){
+        try {
+            logementService.deleteLogement(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/status/{statut}")
+    public ResponseEntity<List<LogementDTO>> afficherLogementsByStatus(StatutLogement statut){
+        List<LogementDTO> logementDTOS = logementService.getLogementsByStatus(statut);
+        if(logementDTOS.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(logementDTOS , HttpStatus.OK);
     }
 }

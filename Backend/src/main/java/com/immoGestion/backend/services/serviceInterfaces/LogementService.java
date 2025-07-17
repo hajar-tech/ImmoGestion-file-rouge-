@@ -1,5 +1,6 @@
 package com.immoGestion.backend.services.serviceInterfaces;
 
+import com.immoGestion.backend.Enums.StatutLogement;
 import com.immoGestion.backend.dtos.LogementDTO;
 import com.immoGestion.backend.dtos.LogementViewAdmin;
 import com.immoGestion.backend.models.Logement;
@@ -23,7 +24,7 @@ public interface LogementService {
 
     void deleteLogement(Long id);
 
-    List<LogementDTO> getLogementsByStatus(String statut);
+    List<LogementDTO> getLogementsByStatus(StatutLogement statut);
 
 
 }
