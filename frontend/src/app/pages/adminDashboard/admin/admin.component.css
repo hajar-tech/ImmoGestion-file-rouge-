@@ -1,0 +1,43 @@
+
+  /* Global styles and keyframes (can be in styles.css or main component's CSS) */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f3f4f6;
+}
+.sidebar-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.sidebar-scroll::-webkit-scrollbar {
+  display: none;
+}
+#logements-scroll-area {
+  -ms-overflow-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: #a0aec0 #f3f4f6;
+}
+#logements-scroll-area::-webkit-scrollbar {
+  width: 8px;
+}
+#logements-scroll-area::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 10px;
+}
+#logements-scroll-area::-webkit-scrollbar-thumb {
+  background-color: #a0aec0;
+  border-radius: 10px;
+  border: 2px solid #f3f4f6;
+}
+@keyframes pulse-once {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-pulse-once {
+  animation: pulse-once 0.5s ease-in-out;
+}
