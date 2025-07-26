@@ -23,7 +23,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/logement/**").permitAll()
+                        .requestMatchers("/api/logements/**").permitAll()
+                        .requestMatchers("/swagger-ui.html").permitAll() // The main Swagger UI page
+                        .requestMatchers("/swagger-ui/**").permitAll()   // Static resources (JS, CSS, images)
+                        .requestMatchers("/v3/api-docs/**").permitAll()  // The OpenAPI JSON/YAML definitions
+                        .requestMatchers("/api-docs/**").permitAll()     // Sometimes this path is also used
+                        .requestMatchers("/webjars/**").permitAll()
                         .anyRequest().authenticated())
                 .userDetailsService(userDetailsService)
                 .build();
