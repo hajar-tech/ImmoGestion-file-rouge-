@@ -10,7 +10,8 @@ import java.util.List;
 public class Logement {
 
     @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_logement")
+    private Long idLogement;
     private String numeroAppartement;
     private int etageNumber;
     private Double surface;
@@ -31,12 +32,12 @@ public class Logement {
     @OneToOne(mappedBy = "logement")
     private Locataire locataire;
 
-    public Long getId() {
-        return id;
+    public Long getIdLogement() {
+        return idLogement;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdLogement(Long idLogement) {
+        this.idLogement = idLogement;
     }
 
     public String getNumeroAppartement() {

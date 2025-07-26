@@ -1,9 +1,6 @@
 package com.immoGestion.backend.models;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -16,7 +13,8 @@ public class Locataire extends Utilisateur{
     @OneToMany(mappedBy = "locataire")
     private List<Paiement> paiemets;
 
-    @OneToOne
+    @OneToOne // This is the owning side
+    @JoinColumn(name = "logement_id_logement", referencedColumnName = "id_logement")
     private Logement logement;
 
     public String getSituationFamiliale() {
