@@ -22,9 +22,9 @@
   <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 md:mb-8">
     <div>
       <h1 class="text-3xl font-bold text-gray-800 mb-2">Gestion des logements</h1>
-      <p class="text-gray-600">6 logements au total</p>
+      <p class="text-gray-600">{{ totalLogements }} logements au total</p>
     </div>
-    <button id="addLogementBtn" class="mt-4 sm:mt-0 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2 transform hover:scale-105 active:scale-95">
+    <button id="addLogementBtn" (click)="onAddLogement()" class="mt-4 sm:mt-0 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2 transform hover:scale-105 active:scale-95">
       <i class="fas fa-plus text-lg"></i>
       <span>Ajouter un logement</span>
     </button>
@@ -57,7 +57,9 @@
       <!-- Example Logement Article - You'll replace this with your <app-logement-card> component -->
       <article  *ngFor=" let logement of logements" class="logement-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition-transform duration-200">
         <div class="relative">
-          <img src="https://placehold.co/600x400/E0E7FF/3B82F6?text=Appartement+1A" alt="Image de l'appartement" class="w-full h-48 object-cover">
+          <img [src]="logement.imageUrls && logement.imageUrls.length > 0 ? logement.imageUrls[0] : 'https://placehold.co/600x400/E0E7FF/3B82F6?text=Image+non+disponible'"
+               alt="Image de l'appartement"
+               class="w-full h-48 object-cover">
           <span class="absolute top-3 right-3 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">{{logement.statut}}</span>
         </div>
         <div class="p-6">
@@ -81,5 +83,11 @@
 
   <!-- Decorative Footer Bar -->
   <div class="mt-8 h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-md"></div>
+
+  <app-add-logement
+    [showModal]="showAddLogementModal"
+    (closeModal)="onCloseAddLogementModal()"
+    (logementAdded)="onCloseAddLogementModal()"
+  ></app-add-logement>
 </main>
 

@@ -10,9 +10,13 @@ export class LogementService {
 
   constructor(private http : HttpClient) { }
 
-    private  apiUrl = 'http://localhost:8080/api/logements/getAll';
+    private  apiUrl = 'http://localhost:8080/api/logements';
 
   getAllLogements(): Observable<Logement[]>{
-    return this.http.get<Logement[]>(this.apiUrl);
+    return this.http.get<Logement[]>(`${this.apiUrl}/getAll`);
+  }
+
+  creerLogement(logement : Logement): Observable<Logement>{
+    return this.http.post<Logement>(`${this.apiUrl}/creerLogement` , logement)
   }
 }

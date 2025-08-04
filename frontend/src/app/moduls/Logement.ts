@@ -7,6 +7,6 @@ export interface Logement {
   prix: number;
   type: string; // Assuming enum is sent as a string (e.g., "T2", "T3")
   statut: string; // Assuming enum is sent as a string (e.g., "LIBRE", "OCCUPE", "MAINTENANCE")
-  // If you add an image URL to your backend Logement entity, add it here:
-  // imageUrl?: string;
+  description : string;
+  imageUrls : string[];
 }
