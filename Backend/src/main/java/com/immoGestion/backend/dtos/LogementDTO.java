@@ -1,5 +1,7 @@
 package com.immoGestion.backend.dtos;
 
+import java.util.List;
+
 public record LogementDTO(
         Long idLogement,
        String numeroAppartement,
@@ -7,7 +9,9 @@ public record LogementDTO(
         Double surface,
         Double prix,
         String type,
-        String statut
+        String statut,
+        String description,
+        List<String> imageUrls
 
 ) {
 }

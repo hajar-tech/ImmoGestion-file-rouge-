@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {SidebareComponent} from '../sidebare/sidebare.component';
-import {LogementComponent} from '../logement/logement.component';
+import {LogementComponent} from '../Logementpages/logement/logement.component';
 
 @Component({
   selector: 'app-admin',

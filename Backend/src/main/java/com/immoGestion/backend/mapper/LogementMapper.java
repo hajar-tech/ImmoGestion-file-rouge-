@@ -14,8 +14,13 @@ public interface LogementMapper {
 
     LogementMapper INSTANCE = Mappers.getMapper(LogementMapper.class);
 
+
     LogementDTO toDto (Logement logement);
+
+
     List<LogementDTO> toDtoList (List<Logement> logements);
+
+
     Logement toEntity (LogementDTO logementDTO);
 
     // This method is for updating an existing entity

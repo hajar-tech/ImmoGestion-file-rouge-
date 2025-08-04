@@ -17,6 +17,13 @@ public class Logement {
     private Double surface;
     private Double prix;
 
+    private String description; // NOUVEAU : description détaillée
+
+    @ElementCollection // Permet de stocker une collection de types simples
+    @CollectionTable(name = "logement_image_urls", joinColumns = @JoinColumn(name = "id_logement"))
+    @Column(name = "image_url")
+    private List<String> imageUrls;
+
     @Enumerated(EnumType.STRING)
     private TypeLogement type;
 
@@ -110,5 +117,21 @@ public class Logement {
 
     public void setLocataire(Locataire locataire) {
         this.locataire = locataire;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<String> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 }
