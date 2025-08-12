@@ -1,0 +1,58 @@
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-200">
+  <!-- Zone de l'image -->
+  <div class="relative">
+    <img src="https://placehold.co/600x400/D1D5DB/1F2937?text=Appartement" alt="Appartement à louer" class="w-full h-56 object-cover">
+
+    <!-- Boutons de navigation d'image (visibles au survol) -->
+    <!-- En Angular, ces événements devraient être gérés via des méthodes du composant -->
+    <button class="absolute left-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hidden group-hover:block transition-all duration-200">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hidden group-hover:block transition-all duration-200">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <!-- Prix -->
+    <span class="absolute top-4 left-4 bg-yellow-400 text-gray-900 text-sm font-bold px-3 py-1 rounded-md">10 500 DH</span>
+
+    <!-- Bouton 'Ajouter aux favoris' -->
+    <button class="absolute top-4 right-4 text-white hover:text-red-500 transition-colors text-xl">
+      <i class="far fa-heart"></i>
+    </button>
+  </div>
+
+  <!-- Détails du logement -->
+  <div class="p-4">
+    <h2 class="text-xl font-semibold text-gray-800 mb-2">Titre du logement</h2>
+    <p class="text-sm text-gray-500 mb-4 flex items-center">
+      <i class="fas fa-map-marker-alt text-blue-600 mr-2"></i><span>Localisation</span>
+    </p>
+
+    <!-- Icônes des caractéristiques principales (Surface, Pièces, Chambres) -->
+    <div class="flex items-center text-sm text-gray-600 space-x-4 mb-4">
+      <p class="flex items-center"><img src="https://mubawab.ma/img/size.svg" class="h-4 mr-1"><span>130 m²</span></p>
+      <p class="flex items-center"><img src="https://mubawab.ma/img/size.svg" class="h-4 mr-1"><span>130 Salon</span></p>
+      <p class="flex items-center"><img src="https://mubawab.ma/img/rooms.svg" class="h-4 mr-1"><span>3 Chambres</span></p>
+      <p class="flex items-center"><img src="https://mubawab.ma/img/beds.svg" class="h-4 mr-1"><span>2 Salle de bain</span></p>
+    </div>
+
+
+    <!-- Boutons de contact -->
+    <div class="grid grid-cols-3 gap-2">
+      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm font-semibold transition-colors">Contacter</button>
+      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center space-x-1">
+        <i class="fas fa-phone-alt"></i><span>Appelez</span>
+      </button>
+      <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center space-x-1">
+        <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
+      </button>
+    </div>
+  </div>
+</article>
+</div>
+
+
+
+

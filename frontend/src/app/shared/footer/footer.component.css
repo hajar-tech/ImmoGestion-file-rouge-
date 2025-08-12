@@ -1,0 +1,7 @@
+.contact-footer-bg {
+  /* Utilisation d'un linear-gradient pour créer l'effet d'opacité sur l'image */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://placehold.co/1920x1080/1a202c/E5E7EB?text=Building+Background');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
