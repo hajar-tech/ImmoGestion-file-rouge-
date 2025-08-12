@@ -1,0 +1,92 @@
+<app-navebar></app-navebar>
+
+<!-- Conteneur principal de la page de détails -->
+<div class="detail bg-gray-50 min-h-screen py-10">
+  <div class="container mx-auto px-4 md:px-8 lg:px-12">
+    <!-- Titre et informations de base -->
+    <div class="mb-8 p-6 bg-white rounded-xl shadow-lg">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">Magnifique Villa avec Vue sur Mer</h1>
+      <p class="text-xl text-gray-600 mb-4">
+        <i class="fas fa-map-marker-alt text-green-500 mr-2"></i> Casablanca, Maroc
+      </p>
+      <span class="text-3xl font-bold text-green-600">3500 €</span> / mois
+    </div>
+
+    <!-- Galerie d'images -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <!-- Image principale (grand format) -->
+      <div class="md:col-span-2 lg:col-span-2">
+        <img src="https://placehold.co/1200x800/E2E8F0/1A202C?text=Image+1" alt="Image principale du logement" class="w-full h-full object-cover rounded-xl shadow-md">
+      </div>
+      <!-- Grille de 4 petites images, maintenant plus grandes -->
+      <div class="grid grid-cols-2 gap-4 col-span-1 md:col-span-2 lg:col-span-2">
+        <img src="https://placehold.co/600x400/E2E8F0/1A202C?text=Image+2" alt="Vue de la piscine" class="w-full h-48 md:h-52 object-cover rounded-xl shadow-md transition-transform duration-300 hover:scale-105">
+        <img src="https://placehold.co/600x400/E2E8F0/1A202C?text=Image+3" alt="Intérieur du salon" class="w-full h-48 md:h-52 object-cover rounded-xl shadow-md transition-transform duration-300 hover:scale-105">
+        <img src="https://placehold.co/600x400/E2E8F0/1A202C?text=Image+4" alt="Chambre principale" class="w-full h-48 md:h-52 object-cover rounded-xl shadow-md transition-transform duration-300 hover:scale-105">
+        <img src="https://placehold.co/600x400/E2E8F0/1A202C?text=Image+5" alt="Jardin et terrasse" class="w-full h-48 md:h-52 object-cover rounded-xl shadow-md transition-transform duration-300 hover:scale-105">
+      </div>
+    </div>
+
+    <!-- Informations et description -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Section de description du logement -->
+      <div class="lg:col-span-2 p-6 bg-white rounded-xl shadow-lg">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Description du Logement</h2>
+        <p class="text-gray-700 leading-relaxed mb-6">
+          Cette magnifique villa de 400 m² offre un cadre de vie exceptionnel, avec une vue imprenable sur l'océan. Elle dispose de 5 chambres spacieuses, d'un grand salon lumineux, d'une cuisine moderne entièrement équipée, et de 4 salles de bain. Le jardin paysager de 1000 m² inclut une piscine chauffée et une terrasse pour profiter des couchers de soleil. Idéalement située dans un quartier calme et sécurisé, la propriété est à seulement 10 minutes en voiture du centre-ville.
+        </p>
+
+        <!-- Détails techniques -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-gray-700">
+          <div class="flex items-center">
+            <i class="fas fa-bed text-green-500 mr-2"></i> 5 Chambres
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-bath text-green-500 mr-2"></i> 4 Salles de Bain
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-ruler-combined text-green-500 mr-2"></i> 400 m²
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-calendar-alt text-green-500 mr-2"></i> Année 2018
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-car text-green-500 mr-2"></i> 2 Garages
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-water text-green-500 mr-2"></i> Piscine
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulaire de contact pour l'admin -->
+      <div class="p-6 bg-white rounded-xl shadow-lg h-fit">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Contacter l'administrateur</h2>
+        <form action="#" method="POST" class="space-y-4">
+          <div>
+            <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+          <div>
+            <label for="prenom" class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+          <div>
+            <label for="telephone" class="block text-sm font-medium text-gray-700 mb-1">Numéro de téléphone</label>
+            <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro de téléphone" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresse email</label>
+            <input type="email" id="email" name="email" placeholder="Votre adresse email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+          <button type="submit" class="w-full px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors">
+            Envoyer
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-footer></app-footer>
