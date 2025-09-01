@@ -1,4 +1,9 @@
 package com.immoGestion.backend.repositories;
 
-public interface LocataireRepository {
+import com.immoGestion.backend.models.Locataire;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface LocataireRepository extends JpaRepository<Locataire , Long> {
 }

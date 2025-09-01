@@ -36,8 +36,10 @@ public class Logement {
     @OneToMany(mappedBy = "logement")
     private List<Charge> charges;
 
-    @OneToOne(mappedBy = "logement")
+    @OneToOne(mappedBy = "logement" , cascade=CascadeType.ALL, orphanRemoval=true)
     private Locataire locataire;
+
+
 
     public Long getIdLogement() {
         return idLogement;
