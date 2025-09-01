@@ -1,15 +1,18 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {LogementService} from '../../../../core/logement/logement.service';
 import {Logement} from '../../../../moduls/Logement';
-import {NgForOf} from '@angular/common';
+import {CommonModule, NgForOf, NgIf} from '@angular/common';
 import {Router} from '@angular/router';
 import {AddLogementComponent} from '../add-logement/add-logement.component';
+import {EditLogementModalComponent} from '../edit-logement-modal/edit-logement-modal.component';
 
 @Component({
   selector: 'app-logement',
   imports: [
     NgForOf,
-    AddLogementComponent
+    AddLogementComponent,
+   CommonModule,
+    EditLogementModalComponent
   ],
   templateUrl: './logement.component.html',
   standalone: true,
@@ -22,9 +25,17 @@ export class LogementComponent implements OnInit{
 
   // NOUVEAU: État pour contrôler l'affichage de la modale
   showAddLogementModal: boolean = false;
+
+  // Modale de modification
+  isEditModalOpen: boolean = false;
+  selectedLogement: Logement | null = null;
+
+
   constructor(private logementService : LogementService,
               private router : Router) {
   }
+
+
 
   ngOnInit(): void {
     this.loadLogements();
@@ -59,6 +70,44 @@ export class LogementComponent implements OnInit{
     this.showAddLogementModal = false;
     this.loadLogements(); // Recharge les logements après la fermeture (pour afficher le nouveau logement)
   }
+
+//---------- Suppression ----------
+  onDeleteLogement(idLogement: number) {
+    if (confirm('Voulez-vous vraiment supprimer ce logement ?')) {
+      this.logementService.deleteLogement(idLogement).subscribe(() => {
+        // Supprimer de la liste côté frontend
+        this.logements = this.logements.filter(l => l.idLogement !== idLogement);
+      });
+    }
+  }
+
+
+  //------ Modification --------
+  openEditModal(logement: Logement): void {
+    this.selectedLogement = logement;
+    this.isEditModalOpen = true;
+  }
+
+  closeEditModal(): void {
+    this.isEditModalOpen = false;
+    this.selectedLogement = null;
+  }
+
+
+
+  saveEditedLogement(updatedLogement: Logement): void {
+    this.logementService.updateLogement(updatedLogement.idLogement!, updatedLogement)
+      .subscribe(() => {
+        const index = this.logements.findIndex(l => l.idLogement === updatedLogement.idLogement);
+        if (index !== -1) {
+          this.logements[index] = updatedLogement;
+        }
+        this.closeEditModal();
+      });
+  }
+
+
+
 
  // onToggleSidebar(): void {
  //   this.toggleSidebar.emit();

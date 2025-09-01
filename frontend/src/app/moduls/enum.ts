@@ -1,0 +1,2 @@
+export const TYPES_LOGEMENT = ['STUDIO', 'APPARTEMENT', 'DUPLEX'];
+export const STATUTS_LOGEMENT = ['LIBRE', 'OCCUPE'];

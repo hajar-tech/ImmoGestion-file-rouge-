@@ -19,4 +19,13 @@ export class LogementService {
   creerLogement(logement : Logement): Observable<Logement>{
     return this.http.post<Logement>(`${this.apiUrl}/creerLogement` , logement)
   }
+
+  deleteLogement(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+
+  updateLogement(id: number, logement: Logement): Observable<Logement> {
+    return this.http.put<Logement>(`${this.apiUrl}/${id}`, logement);
+  }
 }
