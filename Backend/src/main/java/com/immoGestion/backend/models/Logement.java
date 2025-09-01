@@ -1,5 +1,6 @@
 package com.immoGestion.backend.models;
 
+import com.immoGestion.backend.Enums.ProprieteLogement;
 import com.immoGestion.backend.Enums.StatutLogement;
 import com.immoGestion.backend.Enums.TypeLogement;
 import jakarta.persistence.*;
@@ -16,6 +17,16 @@ public class Logement {
     private int etageNumber;
     private Double surface;
     private Double prix;
+    private int nombreChambre;
+    private int salleDeBain;
+
+    @Enumerated(EnumType.STRING)
+    private ProprieteLogement propriete ;
+
+    private boolean aGarage;
+    private boolean aTerrasse;
+    private boolean aAscenseur;
+
 
     private String description; // NOUVEAU : description détaillée
 
@@ -133,5 +144,54 @@ public class Logement {
 
     public void setImageUrls(List<String> imageUrls) {
         this.imageUrls = imageUrls;
+    }
+
+    public int getNombreChambre() {
+        return nombreChambre;
+    }
+
+    public void setNombreChambre(int nombreChambre) {
+        this.nombreChambre = nombreChambre;
+    }
+
+    public int getSalleDeBain() {
+        return salleDeBain;
+    }
+
+    public void setSalleDeBain(int salleDeBain) {
+        this.salleDeBain = salleDeBain;
+    }
+
+    // Getters et Setters pour les booleans attributs
+    public boolean isAGarage() {
+        return aGarage;
+    }
+
+    public void setAGarage(boolean aGarage) {
+        this.aGarage = aGarage;
+    }
+
+    public boolean isATerrasse() {
+        return aTerrasse;
+    }
+
+    public void setATerrasse(boolean aTerrasse) {
+        this.aTerrasse = aTerrasse;
+    }
+
+    public boolean isAAscenseur() {
+        return aAscenseur;
+    }
+
+    public void setAAscenseur(boolean aAscenseur) {
+        this.aAscenseur = aAscenseur;
+    }
+
+    public ProprieteLogement getPropriete() {
+        return propriete;
+    }
+
+    public void setPropriete(ProprieteLogement propriete) {
+        this.propriete = propriete;
     }
 }

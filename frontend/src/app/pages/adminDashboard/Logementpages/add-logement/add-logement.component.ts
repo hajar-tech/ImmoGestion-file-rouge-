@@ -1,30 +1,25 @@
 import {Component, EventEmitter, OnInit, Output, Input} from '@angular/core';
-
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {LogementService} from '../../../../core/logement/logement.service';
 import {Logement} from '../../../../moduls/Logement';
-import {NgIf} from '@angular/common';
+import {NgIf, NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-add-logement',
+  standalone: true,
   imports: [
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
   templateUrl: './add-logement.component.html',
-  styleUrl: './add-logement.component.css'
+  styleUrls: ['./add-logement.component.css']
 })
 export class AddLogementComponent  implements OnInit{
-  // @Input pour contrôler la visibilité de la modale depuis le composant parent
   @Input() showModal: boolean = false;
-
-  // @Output pour notifier le composant parent de fermer la modale
   @Output() closeModal = new EventEmitter<boolean>();
-
-  // @Output pour notifier le composant parent qu'un logement a été ajouté
   @Output() logementAdded = new EventEmitter<void>();
 
-  // FormGroup pour gérer le formulaire d'ajout
   addLogementForm!: FormGroup;
 
   isSubmitting: boolean = false;
@@ -36,36 +31,37 @@ export class AddLogementComponent  implements OnInit{
   }
 
   ngOnInit(): void {
-
-    // Initialisation du formulaire avec des valeurs par défaut et des validateurs
     this.addLogementForm = this.fb.group({
       numeroAppartement: ['', Validators.required],
       etageNumber: [null, [Validators.required, Validators.min(0)]],
       surface: [null, [Validators.required, Validators.min(1)]],
       prix: [null, [Validators.required, Validators.min(0)]],
+      propriete: ['', Validators.required],
       type: ['', Validators.required],
       statut: ['', Validators.required],
+      nombreChambre: [null, [Validators.required, Validators.min(0)]],
+      salleDeBain: [null, [Validators.required, Validators.min(0)]],
+      aGarage: [false],
+      aTerrasse: [false],
+      aAscenseur: [false],
       description: [''],
-      // Utilisation d'un champ texte pour les URLs d'images séparées par des virgules pour simplifier
       imageUrls: ['']
     });
   }
 
-  // Méthode pour fermer la modale
   onClose(): void {
     this.closeModal.emit(true);
-    this.addLogementForm.reset(); // Réinitialise le formulaire lors de la fermeture
+    this.addLogementForm.reset();
+    this.successMessage = null;
+    this.errorMessage = null;
   }
 
-  //Soumission du formulaire
   onSubmit(): void{
-
     if (this.addLogementForm.valid){
       this.isSubmitting = true;
       this.successMessage = null;
       this.errorMessage = null;
 
-      //creer objet Logement
       const newLogement : Logement = {
         ...this.addLogementForm.value,
         imageUrls : this.parseImageUrls(this.addLogementForm.value.imageUrls)
@@ -84,21 +80,15 @@ export class AddLogementComponent  implements OnInit{
           this.isSubmitting = false;
           this.errorMessage = 'Erreur lors de l\'ajout du logement. Veuillez réessayer.';
           console.error('Erreur lors de la création du logement :', err);
-
         }
       });
-
-    }else {
-      // Marque tous les champs comme "touchés" pour afficher les erreurs de validation
+    } else {
       this.addLogementForm.markAllAsTouched();
     }
-
   }
 
-  // Helper pour parser les URLs d'images d'une chaîne
   private parseImageUrls(urls: string): string[] {
     if (!urls) return [];
     return urls.split(',').map(url => url.trim()).filter(url => url.length > 0);
   }
-
 }

@@ -12,7 +12,7 @@ export const routes: Routes = [
   {path : 'login' , component: LoginComponent},
   {path : 'register' , component: RegisterComponent},
   {path : 'admin' , component: AdminComponent},
-  {path : 'client_property' , component: ClientMainComponent},
+  {path : 'client' , component: ClientMainComponent},
   {path : 'detail_logement' , component : DetailsComponent}
 
 

@@ -1,5 +1,6 @@
 package com.immoGestion.backend.controllers;
 
+import com.immoGestion.backend.Enums.ProprieteLogement;
 import com.immoGestion.backend.Enums.StatutLogement;
 import com.immoGestion.backend.dtos.LogementDTO;
 import com.immoGestion.backend.dtos.LogementViewAdmin;
@@ -70,4 +71,28 @@ public class LogementController {
         }
         return new ResponseEntity<>(logementDTOS , HttpStatus.OK);
     }
+
+
+    @GetMapping("/filterPropriete")
+    public ResponseEntity<List<Logement>> filterLogementsByProperties(
+            @RequestParam String property,
+            @RequestParam String value) {
+
+        // Validation simple
+        if (!"propriete".equals(property)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        try {
+            ProprieteLogement proprieteEnum = ProprieteLogement.valueOf(value); // Convert string -> enum
+            List<Logement> logements = logementService.getLogementsByPropriete(proprieteEnum);
+            return ResponseEntity.ok(logements);
+        } catch (IllegalArgumentException e) {
+            // Si value ma-matcha ma3a enum
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
+
 }

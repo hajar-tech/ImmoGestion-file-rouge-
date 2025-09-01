@@ -1,5 +1,6 @@
 package com.immoGestion.backend.services.serviceInterfaces;
 
+import com.immoGestion.backend.Enums.ProprieteLogement;
 import com.immoGestion.backend.Enums.StatutLogement;
 import com.immoGestion.backend.dtos.LogementDTO;
 import com.immoGestion.backend.dtos.LogementViewAdmin;
@@ -26,5 +27,6 @@ public interface LogementService {
 
     List<LogementDTO> getLogementsByStatus(StatutLogement statut);
 
+  List<Logement> getLogementsByPropriete(ProprieteLogement propriete);
 
 }

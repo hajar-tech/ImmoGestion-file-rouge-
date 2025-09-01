@@ -1,120 +1,140 @@
-<!-- src/app/components/add-logement-modal/add-logement-modal.component.html -->
-<div *ngIf="showModal" class="fixed inset-0 z-50 overflow-y-auto">
-  <!-- Fond de la modale -->
-  <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" (click)="onClose()"></div>
+<!-- La modale entière, visible conditionnellement -->
+<div *ngIf="showModal" class="fixed inset-0 z-50 overflow-y-auto bg-gray-900 bg-opacity-50 flex items-center justify-center p-4">
+  <!-- Conteneur de la modale -->
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl p-6 sm:p-8 md:p-10 transform transition-all duration-300 scale-100 mx-auto">
 
-  <!-- Contenu de la modale -->
-  <div class="flex items-center justify-center min-h-screen">
-    <div class="relative bg-white rounded-lg shadow-xl max-w-3xl w-full mx-4 my-8 p-6 md:p-8 transform transition-all duration-300 scale-100">
+    <!-- En-tête de la modale avec le titre et le bouton de fermeture -->
+    <div class="flex justify-between items-center pb-6 border-b border-gray-200">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-800">Ajouter un logement</h2>
       <!-- Bouton de fermeture -->
-      <button (click)="onClose()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-900 transition-colors duration-200">
-        <i class="fas fa-times-circle text-2xl"></i>
+      <button (click)="onClose()" class="text-gray-400 hover:text-gray-600 transition-colors duration-200 focus:outline-none p-1 rounded-full">
+        <i class="fas fa-times-circle text-2xl sm:text-3xl"></i>
       </button>
+    </div>
 
-      <!-- Titre -->
-      <h2 class="text-3xl font-bold text-gray-800 mb-6">Ajouter un nouveau logement</h2>
-
-      <!-- Affichage des messages de statut -->
-      <div *ngIf="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+    <!-- Contenu du formulaire -->
+    <div class="mt-6">
+      <!-- Messages de succès ou d'erreur -->
+      <div *ngIf="successMessage" class="bg-green-100 text-green-700 p-4 rounded-xl mb-6 text-center font-medium shadow-md transition-opacity duration-300">
         {{ successMessage }}
       </div>
-      <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+      <div *ngIf="errorMessage" class="bg-red-100 text-red-700 p-4 rounded-xl mb-6 text-center font-medium shadow-md transition-opacity duration-300">
         {{ errorMessage }}
       </div>
 
-      <!-- Formulaire -->
-      <form [formGroup]="addLogementForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Le formulaire d'ajout -->
+      <form [formGroup]="addLogementForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 gap-x-8 gap-y-6">
 
-        <!-- Numéro d'appartement -->
-        <div>
-          <label for="numeroAppartement" class="block text-sm font-medium text-gray-700">Numéro d'appartement</label>
-          <input type="text" id="numeroAppartement" formControlName="numeroAppartement" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-          <div *ngIf="addLogementForm.get('numeroAppartement')?.invalid && (addLogementForm.get('numeroAppartement')?.dirty || addLogementForm.get('numeroAppartement')?.touched)" class="text-red-500 text-xs mt-1">
-            Un numéro d'appartement est requis.
+        <!-- Champs de saisie organisés en 4 colonnes -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-6">
+          <!-- Numéro d'appartement -->
+          <div>
+            <label for="numeroAppartement" class="block text-sm font-semibold text-gray-700 mb-2">N° Appartement</label>
+            <input id="numeroAppartement" formControlName="numeroAppartement" type="text"
+                   class="w-full px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-sm">
+          </div>
+
+          <!-- Numéro d'étage -->
+          <div>
+            <label for="etageNumber" class="block text-sm font-semibold text-gray-700 mb-2">N° d'étage</label>
+            <input id="etageNumber" formControlName="etageNumber" type="number"
+                   class="w-full px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-sm">
+          </div>
+
+          <!-- Surface -->
+          <div>
+            <label for="surface" class="block text-sm font-semibold text-gray-700 mb-2">Surface</label>
+            <input id="surface" formControlName="surface" type="number"
+                   class="w-full px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-sm">
+          </div>
+
+          <!-- Prix -->
+          <div>
+            <label for="prix" class="block text-sm font-semibold text-gray-700 mb-2">Prix</label>
+            <input id="prix" formControlName="prix" type="number"
+                   class="w-full px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-sm">
+          </div>
+
+          <!-- property -->
+          <div>
+            <label for="property" class="block text-sm font-semibold text-gray-700 mb-2">Property</label>
+            <input id="property" formControlName="property" type="text"
+                   class="w-full px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-sm">
+          </div>
+
+          <!-- Type -->
+          <div>
+            <label for="type" class="block text-sm font-semibold text-gray-700 mb-2">Type</label>
+            <input id="type" formControlName="type" type="text"
+                   class="w-full px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-sm">
+          </div>
+
+          <!-- Statut -->
+          <div>
+            <label for="statut" class="block text-sm font-semibold text-gray-700 mb-2">Statut</label>
+            <input id="statut" formControlName="statut" type="text"
+                   class="w-full px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-sm">
+          </div>
+
+          <!-- Nombre de chambres -->
+          <div>
+            <label for="nombreChambre" class="block text-sm font-semibold text-gray-700 mb-2">Nombre de chambres</label>
+            <input id="nombreChambre" formControlName="nombreChambre" type="number"
+                   class="w-full px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-sm">
+          </div>
+
+          <!-- Nombre de salles de bain -->
+          <div>
+            <label for="salleDeBain" class="block text-sm font-semibold text-gray-700 mb-2">Nombre de salles de bain</label>
+            <input id="salleDeBain" formControlName="salleDeBain" type="number"
+                   class="w-full px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-sm">
           </div>
         </div>
 
-        <!-- Étage -->
-        <div>
-          <label for="etageNumber" class="block text-sm font-medium text-gray-700">Numéro d'étage</label>
-          <input type="number" id="etageNumber" formControlName="etageNumber" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-          <div *ngIf="addLogementForm.get('etageNumber')?.invalid && (addLogementForm.get('etageNumber')?.dirty || addLogementForm.get('etageNumber')?.touched)" class="text-red-500 text-xs mt-1">
-            Le numéro d'étage est requis et doit être un nombre.
-          </div>
+        <!-- Checkbox -->
+        <div class="col-span-full flex flex-wrap gap-x-8 gap-y-4 pt-2">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" formControlName="aGarage" class="rounded text-blue-500 focus:ring-blue-500">
+            <span class="text-sm text-gray-700">Garage</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" formControlName="aTerrasse" class="rounded text-blue-500 focus:ring-blue-500">
+            <span class="text-sm text-gray-700">Terrasse</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" formControlName="aAscenseur" class="rounded text-blue-500 focus:ring-blue-500">
+            <span class="text-sm text-gray-700">Ascenseur</span>
+          </label>
         </div>
 
-        <!-- Surface -->
-        <div>
-          <label for="surface" class="block text-sm font-medium text-gray-700">Surface (m²)</label>
-          <input type="number" id="surface" formControlName="surface" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-          <div *ngIf="addLogementForm.get('surface')?.invalid && (addLogementForm.get('surface')?.dirty || addLogementForm.get('surface')?.touched)" class="text-red-500 text-xs mt-1">
-            La surface est requise et doit être un nombre positif.
-          </div>
+        <!-- Description -->
+        <div class="col-span-full">
+          <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+          <textarea id="description" formControlName="description" rows="3"
+                    class="w-full px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-sm"></textarea>
         </div>
 
-        <!-- Prix -->
-        <div>
-          <label for="prix" class="block text-sm font-medium text-gray-700">Prix (€)</label>
-          <input type="number" id="prix" formControlName="prix" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-          <div *ngIf="addLogementForm.get('prix')?.invalid && (addLogementForm.get('prix')?.dirty || addLogementForm.get('prix')?.touched)" class="text-red-500 text-xs mt-1">
-            Le prix est requis et doit être un nombre.
-          </div>
+        <!-- URLs d'images -->
+        <div class="col-span-full">
+          <label for="imageUrls" class="block text-sm font-semibold text-gray-700 mb-2">URLs d'images (séparées par une virgule)</label>
+          <input id="imageUrls" formControlName="imageUrls" type="text"
+                 class="w-full px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-sm">
         </div>
 
-        <!-- Type -->
-        <div>
-          <label for="type" class="block text-sm font-medium text-gray-700">Type de logement</label>
-          <select id="type" formControlName="type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-            <option value="" disabled>Sélectionner un type</option>
-            <option value="APPARTEMENT">Appartement</option>
-            <option value="DUPLEX">Duplex</option>
-            <option value="STUDIO">Studio</option>
-            <!-- Ajoutez d'autres types si nécessaire -->
-          </select>
-          <div *ngIf="addLogementForm.get('type')?.invalid && (addLogementForm.get('type')?.dirty || addLogementForm.get('type')?.touched)" class="text-red-500 text-xs mt-1">
-            Un type est requis.
-          </div>
-        </div>
-
-        <!-- Statut -->
-        <div>
-          <label for="statut" class="block text-sm font-medium text-gray-700">Statut</label>
-          <select id="statut" formControlName="statut" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-            <option value="" disabled>Sélectionner un statut</option>
-            <option value="LIBRE">Libre</option>
-            <option value="OCCUPE">Occupé</option>
-            <option value="MAINTENANCE">Maintenance</option>
-          </select>
-          <div *ngIf="addLogementForm.get('statut')?.invalid && (addLogementForm.get('statut')?.dirty || addLogementForm.get('statut')?.touched)" class="text-red-500 text-xs mt-1">
-            Un statut est requis.
-          </div>
-        </div>
-
-        <!-- Description (span deux colonnes) -->
-        <div class="md:col-span-2">
-          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-          <textarea id="description" formControlName="description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
-        </div>
-
-        <!-- URLs d'images (span deux colonnes) -->
-        <div class="md:col-span-2">
-          <label for="imageUrls" class="block text-sm font-medium text-gray-700">URLs des images (séparées par une virgule)</label>
-          <textarea id="imageUrls" formControlName="imageUrls" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
-          <p class="mt-2 text-sm text-gray-500">Exemple: https://url1.com/image.jpg, https://url2.com/image.png</p>
-        </div>
-
-        <!-- Boutons du formulaire -->
-        <div class="md:col-span-2 flex justify-end space-x-3 mt-4">
-          <button type="button" (click)="onClose()" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-            Fermer
-          </button>
-          <button type="submit" [disabled]="!addLogementForm.valid || isSubmitting" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
-            <i *ngIf="isSubmitting" class="fas fa-spinner fa-spin mr-2"></i>
-            Ajouter le logement
+        <!-- Bouton de soumission -->
+        <div class="col-span-full flex justify-end mt-6">
+          <button type="submit"
+                  [disabled]="isSubmitting"
+                  class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+            <!-- Utilisation conditionnelle de l'icône de chargement -->
+            <span *ngIf="isSubmitting" class="flex items-center space-x-2">
+              <i class="fas fa-spinner fa-spin text-white"></i>
+              <span>Ajout en cours...</span>
+            </span>
+            <span *ngIf="!isSubmitting">Ajouter le logement</span>
           </button>
         </div>
       </form>
     </div>
   </div>
 </div>
-

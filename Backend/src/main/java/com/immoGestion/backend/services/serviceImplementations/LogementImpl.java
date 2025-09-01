@@ -1,5 +1,6 @@
 package com.immoGestion.backend.services.serviceImplementations;
 
+import com.immoGestion.backend.Enums.ProprieteLogement;
 import com.immoGestion.backend.Enums.StatutLogement;
 import com.immoGestion.backend.dtos.LogementDTO;
 import com.immoGestion.backend.dtos.LogementViewAdmin;
@@ -65,6 +66,11 @@ public class LogementImpl implements LogementService {
         return logementRepository.findByStatut(statut).stream()
                 .map(logementMapper :: toDto)
                 .collect((Collectors.toList()));
+    }
+
+   @Override
+    public List<Logement> getLogementsByPropriete(ProprieteLogement propriete){
+        return logementRepository.findByPropriete(propriete);
     }
 
 //    @Override

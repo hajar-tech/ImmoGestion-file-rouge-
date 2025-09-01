@@ -10,6 +10,12 @@ public record LogementDTO(
         Double prix,
         String type,
         String statut,
+        int nombreChambre,
+        int salleDeBain,
+        boolean aGarage,
+        boolean aTerrasse,
+        boolean aAscenseur,
+        String propriete,
         String description,
         List<String> imageUrls
 
