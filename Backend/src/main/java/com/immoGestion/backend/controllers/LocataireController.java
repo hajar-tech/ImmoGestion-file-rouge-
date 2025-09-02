@@ -1,7 +1,10 @@
 package com.immoGestion.backend.controllers;
 
 import com.immoGestion.backend.dtos.LocataireDTO;
+import com.immoGestion.backend.dtos.LocataireDetailDTO;
+import com.immoGestion.backend.dtos.LocataireLogementAssociationDTO;
 import com.immoGestion.backend.services.serviceInterfaces.LocataireService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +42,18 @@ public class LocataireController {
     @GetMapping("/{id}")
     public Optional<LocataireDTO> getLocataire(@PathVariable Long id) {
         return locataireService.getLocataireById(id);
+    }
+
+
+    @PostMapping("/assign-logement")
+    public ResponseEntity<String> assignLogement(@RequestBody LocataireLogementAssociationDTO dto) {
+        locataireService.assignLogementToLocataire(dto);
+        return ResponseEntity.ok("Logement assigné avec succès !");
+    }
+
+    @GetMapping("/{id}/details")
+    public ResponseEntity<LocataireDetailDTO> getDetails(@PathVariable Long id) {
+        return ResponseEntity.ok(locataireService.getLocataireDetail(id));
     }
 
 }

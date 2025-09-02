@@ -1,6 +1,8 @@
 package com.immoGestion.backend.services.serviceImplementations;
 
 import com.immoGestion.backend.dtos.LocataireDTO;
+import com.immoGestion.backend.dtos.LocataireDetailDTO;
+import com.immoGestion.backend.dtos.LocataireLogementAssociationDTO;
 import com.immoGestion.backend.mapper.LocataireMapper;
 import com.immoGestion.backend.models.Locataire;
 import com.immoGestion.backend.models.Logement;
@@ -68,5 +70,41 @@ public class LocataireImpl implements LocataireService {
     @Override
     public Optional<LocataireDTO> getLocataireById(Long id) {
         return locataireRepository.findById(id).map(locataireMapper::toDto);
+    }
+
+    @Override
+    public void assignLogementToLocataire(LocataireLogementAssociationDTO dto) {
+        Locataire locataire = locataireRepository.findById(dto.getLocatairId())
+                .orElseThrow(()-> new RuntimeException("Locataire non trouvé") );
+
+        Logement logement = logementRepository.findById(dto.getLogementId())
+                .orElseThrow(()-> new RuntimeException("Logement non trouvé"));
+
+        locataire.setLogement(logement);
+        locataireRepository.save(locataire);
+    }
+
+    @Override
+    public LocataireDetailDTO getLocataireDetail(Long locataireId) {
+        Locataire locataire = locataireRepository.findById(locataireId)
+                .orElseThrow(() -> new RuntimeException("Locataire non trouvé"));
+
+        LocataireDetailDTO dto = new LocataireDetailDTO();
+        dto.setNom(locataire.getNom());
+        dto.setPrenom(locataire.getPrenom());
+        dto.setCarteIdentite(locataire.getCarteIdentite());
+        dto.setEmail(locataire.getEmail());
+        dto.setPassword(locataire.getPassword());
+        dto.setNumeroTelephone(locataire.getNumeroTelephone());
+        dto.setSituationFamiliale(locataire.getSituationFamiliale());
+
+        if(locataire.getLogement() != null){
+            dto.setNumeroAppartement(locataire.getLogement().getNumeroAppartement());
+            dto.setEtageNumber(locataire.getLogement().getEtageNumber());
+            dto.setSurface(locataire.getLogement().getSurface());
+            dto.setPrix(locataire.getLogement().getPrix());
+            dto.getType(locataire.getLogement().getType());
+        }
+        return dto;
     }
 }
