@@ -1,5 +1,7 @@
 package com.immoGestion.backend.dtos;
 
+import com.immoGestion.backend.Enums.TypeLogement;
+
 import java.util.List;
 
 public record LogementDTO(
@@ -8,7 +10,7 @@ public record LogementDTO(
         int etageNumber,
         Double surface,
         Double prix,
-        String type,
+        TypeLogement type,
         String statut,
         String description,
         List<String> imageUrls

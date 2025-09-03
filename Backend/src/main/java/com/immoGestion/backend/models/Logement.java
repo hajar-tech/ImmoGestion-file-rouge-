@@ -28,7 +28,7 @@ public class Logement {
     private TypeLogement type;
 
     @Enumerated(EnumType.STRING)
-    private StatutLogement statut;
+    private StatutLogement statut = StatutLogement.LIBRE;
 
     @OneToMany(mappedBy = "logement")
     private List<Paiement> paiements;

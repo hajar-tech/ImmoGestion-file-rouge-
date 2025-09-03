@@ -1,10 +1,9 @@
-<body class="flex flex-col min-h-screen">
-<div class="flex flex-1">
-  <!-- Sidebar Component will be inserted here -->
+<div class="flex flex-1 min-h-screen">
+  <!-- Sidebar toujours visible -->
   <app-sidebare></app-sidebare>
 
-  <!-- Logement Component will be inserted here -->
-  <app-logement></app-logement>
+  <!-- Zone principale qui change selon le router -->
+  <main class="flex-1 p-6 overflow-auto">
+    <router-outlet></router-outlet>
+  </main>
 </div>
-<!-- No JavaScript in this main HTML, it will be in the parent Angular component's TS -->
-</body>

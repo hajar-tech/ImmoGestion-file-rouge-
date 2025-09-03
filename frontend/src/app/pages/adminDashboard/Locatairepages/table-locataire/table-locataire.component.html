@@ -1,0 +1,83 @@
+<div class="p-6">
+
+
+  <!-- Container table avec scroll horizontal & vertical -->
+  <div class="overflow-x-auto overflow-y-auto max-h-96 max-w-full rounded-lg shadow-lg border border-gray-200">
+    <table class="min-w-[900px] w-full bg-white">
+      <thead>
+      <tr class="bg-blue-200 text-gray-700 text-sm md:text-base">
+        <!-- En-têtes -->
+        <th class="py-3 px-6 text-left">Nom</th>
+        <th class="py-3 px-6 text-left">Prénom</th>
+        <th class="py-3 px-6 text-left">Carte Identité</th>
+        <th class="py-3 px-6 text-left">Téléphone</th>
+        <th class="py-3 px-6 text-left">Situation Familiale</th>
+        <th class="py-3 px-6 text-left">Email</th>
+        <th class="py-3 px-6 text-left">Password</th>
+        <th class="py-3 px-6 text-center">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let locataire of locataires" class="border-b hover:bg-gray-50 text-sm md:text-base">
+        <td class="py-3 px-6">{{ locataire.nom }}</td>
+        <td class="py-3 px-6">{{ locataire.prenom }}</td>
+        <td class="py-3 px-6">{{ locataire.carteIdentite }}</td>
+        <td class="py-3 px-6">{{ locataire.numeroTelephone }}</td>
+        <td class="py-3 px-6">{{ locataire.situationFamiliale }}</td>
+        <td class="py-3 px-6">{{ locataire.email }}</td>
+        <td class="py-3 px-6">{{ locataire.password }}</td>
+
+        <!-- Colonne Actions -->
+        <td class="py-3 px-6 flex space-x-2 justify-center">
+          <!-- Bouton Edit -->
+          <button
+            (click)="editLocataire(locataire)"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm">
+            Éditer
+          </button>
+          <!-- Bouton Associer -->
+<!--          <button-->
+<!--            (click)="associerLocataire(locataire)"-->
+<!--            class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-sm">-->
+<!--            Associer-->
+<!--          </button>-->
+          <!-- Bouton Supprimer -->
+          <button
+            (click)="deleteLocataire(locataire.id)"
+            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm">
+            Supprimer
+          </button>
+
+          <button
+            [routerLink]="['/admin/locataireDetails', locataire.id]"
+            class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm"
+          >
+            Voir détails
+          </button>
+
+<!--          <button-->
+<!--            class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"-->
+<!--            (click)="libererLocataire(locataire)"-->
+<!--            *ngIf="locataire.logementId"  &lt;!&ndash; Affiche seulement si le locataire a un logement associé &ndash;&gt;-->
+<!--          >-->
+<!--          Libérer Logement-->
+<!--          </button>-->
+
+
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-edit-locataire
+    *ngIf="showEditModal"
+    [locataire]="locataireToEdit"
+    (close)="onEditClose()"
+    (updated)="onLocataireUpdated($event)">
+  </app-edit-locataire>
+
+
+
+</div>

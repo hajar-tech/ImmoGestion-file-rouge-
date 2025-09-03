@@ -26,5 +26,5 @@ public interface LogementService {
 
     List<LogementDTO> getLogementsByStatus(StatutLogement statut);
 
-
+    void libererLogement(Long locataireId);
 }
