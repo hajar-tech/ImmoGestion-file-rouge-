@@ -3,7 +3,7 @@ package com.immoGestion.backend.dtos;
 import com.immoGestion.backend.Enums.TypeLogement;
 
 public class LocataireDetailDTO {
-
+    private Long idLocataire;
 
     private String prenom;
     private String nom;
@@ -14,7 +14,7 @@ public class LocataireDetailDTO {
     private String situationFamiliale;
 
     // Logement associé (infos principales)
-
+    private Long idLogement;
    private String numeroAppartement;
   private  int etageNumber;
    private Double surface;
@@ -23,6 +23,22 @@ public class LocataireDetailDTO {
 
 
    //getters and setters
+
+    public Long getIdLocataire() {
+        return idLocataire;
+    }
+
+    public void setIdLocataire(Long idLocataire) {
+        this.idLocataire = idLocataire;
+    }
+
+    public Long getIdLogement() {
+        return idLogement;
+    }
+
+    public void setIdLogement(Long idLogement) {
+        this.idLogement = idLogement;
+    }
 
     public String getPrenom() {
         return prenom;
@@ -112,8 +128,8 @@ public class LocataireDetailDTO {
         this.prix = prix;
     }
 
-    public TypeLogement getType(TypeLogement type) {
-        return this.type;
+    public TypeLogement getType() {
+        return type;
     }
 
     public void setType(TypeLogement type) {

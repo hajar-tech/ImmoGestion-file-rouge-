@@ -21,7 +21,8 @@ public interface LocataireService {
      Optional<LocataireDTO> getLocataireById(Long id);
     void assignLogementToLocataire(LocataireLogementAssociationDTO dto);
     LocataireDetailDTO getLocataireDetail(Long locataireId);
-
+    void libererLogement(Long locataireId, Long logementId);
+    void dissocierLocataire(Long idLocataire, Long idLogement);
 
 
 

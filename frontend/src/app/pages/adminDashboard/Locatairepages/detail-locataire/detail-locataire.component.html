@@ -1,0 +1,70 @@
+<div class="p-4 sm:p-6 max-w-6xlxl mx-auto bg-white rounded-lg shadow-md">
+
+  <!-- Bouton Retour et Actions -->
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 space-y-2 sm:space-y-0">
+    <button
+      (click)="goBack()"
+      class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition-colors"
+    >
+      ← Retour
+    </button>
+
+    <div class="flex space-x-2">
+      <button
+       (click)="openAssocierModal()"
+        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors"
+      >
+        Associer Logement
+      </button>
+      <button
+
+        (click)="onDissocierLogement(locataireDetails.idLogement!)"
+        class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors disabled:opacity-50"
+      >
+        Dissocier Logement
+      </button>
+    </div>
+  </div>
+
+  <!-- Conteneur scroll vertical pour les tableaux -->
+  <div class="overflow-y-auto max-h-[70vh] space-y-6">
+
+    <!-- Détails du locataire -->
+    <div>
+      <h2 class="text-2xl font-bold mb-2 border-b pb-2">Détails du locataire</h2>
+      <table class="min-w-full bg-gray-50 border border-gray-200 rounded-md">
+        <tbody>
+        <tr class="border-b"><td class="py-2 px-4 font-semibold">Nom</td><td class="py-2 px-4">{{ locataireDetails?.nom }}</td></tr>
+        <tr class="border-b"><td class="py-2 px-4 font-semibold">Prénom</td><td class="py-2 px-4">{{ locataireDetails?.prenom }}</td></tr>
+        <tr class="border-b"><td class="py-2 px-4 font-semibold">Email</td><td class="py-2 px-4">{{ locataireDetails?.email }}</td></tr>
+        <tr class="border-b"><td class="py-2 px-4 font-semibold">Téléphone</td><td class="py-2 px-4">{{ locataireDetails?.numeroTelephone }}</td></tr>
+        <tr class="border-b"><td class="py-2 px-4 font-semibold">Carte Identité</td><td class="py-2 px-4">{{ locataireDetails?.carteIdentite }}</td></tr>
+        <tr><td class="py-2 px-4 font-semibold">Situation Familiale</td><td class="py-2 px-4">{{ locataireDetails?.situationFamiliale }}</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Détails du logement associé -->
+    <div>
+      <h3 class="text-xl font-semibold mb-2 border-b pb-2">Logement associé</h3>
+      <table class="min-w-full bg-gray-50 border border-gray-200 rounded-md">
+        <tbody>
+        <tr class="border-b"><td class="py-2 px-4 font-semibold">Numéro Appartement</td><td class="py-2 px-4">{{ locataireDetails?.numeroAppartement || 'Libre' }}</td></tr>
+        <tr class="border-b"><td class="py-2 px-4 font-semibold">Étage</td><td class="py-2 px-4">{{ locataireDetails?.etageNumber || '-' }}</td></tr>
+        <tr class="border-b"><td class="py-2 px-4 font-semibold">Surface</td><td class="py-2 px-4">{{ locataireDetails?.surface || '-' }} m²</td></tr>
+        <tr class="border-b"><td class="py-2 px-4 font-semibold">Prix</td><td class="py-2 px-4">{{ locataireDetails?.prix || '-' }} MAD</td></tr>
+        <tr><td class="py-2 px-4 font-semibold">Type</td><td class="py-2 px-4">{{ locataireDetails?.type || '-' }}</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <app-associer-locataire
+    *ngIf="showAssocierModal"
+    [locataire]="locataireToAssocier"
+    (close)="closeAssocierModal()"
+    (updated)="closeAssocierModal()">
+  </app-associer-locataire>
+
+</div>

@@ -5,7 +5,9 @@ import com.immoGestion.backend.dtos.LogementDTO;
 import com.immoGestion.backend.dtos.LogementViewAdmin;
 import com.immoGestion.backend.mapper.LogementMapper;
 import com.immoGestion.backend.mapper.LogementViewAdminMapper;
+import com.immoGestion.backend.models.Locataire;
 import com.immoGestion.backend.models.Logement;
+import com.immoGestion.backend.repositories.LocataireRepository;
 import com.immoGestion.backend.repositories.LogementRepository;
 import com.immoGestion.backend.services.serviceInterfaces.LogementService;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,13 @@ public class LogementImpl implements LogementService {
     private final LogementRepository logementRepository;
     private final LogementViewAdminMapper logementViewAdminMapper;
     private final LogementMapper logementMapper;
-    public LogementImpl(LogementMapper logementMapper ,LogementRepository logementRepository , LogementViewAdminMapper logementViewAdminMapper){
+    private final LocataireRepository locataireRepository;
+
+    public LogementImpl(LogementMapper logementMapper , LogementRepository logementRepository , LogementViewAdminMapper logementViewAdminMapper, LocataireRepository locataireRepository){
         this.logementRepository = logementRepository;
         this.logementViewAdminMapper = logementViewAdminMapper;
         this.logementMapper = logementMapper;
+        this.locataireRepository = locataireRepository;
     }
 
     @Override
@@ -65,6 +70,21 @@ public class LogementImpl implements LogementService {
         return logementRepository.findByStatut(statut).stream()
                 .map(logementMapper :: toDto)
                 .collect((Collectors.toList()));
+    }
+
+    @Override
+    public void libererLogement(Long locataireId) {
+        Locataire locataire = locataireRepository.findById(locataireId)
+                .orElseThrow(()-> new RuntimeException("Locataire non trouvé"));
+
+        Logement logement = locataire.getLogement();
+        if (logement != null){
+            logement.setStatut(StatutLogement.LIBRE);
+            logementRepository.save(logement);
+
+            locataire.setLogement(null);
+            locataireRepository.save(locataire);
+        }
     }
 
 //    @Override

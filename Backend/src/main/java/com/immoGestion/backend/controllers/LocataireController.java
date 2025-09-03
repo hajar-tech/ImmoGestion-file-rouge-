@@ -4,12 +4,14 @@ import com.immoGestion.backend.dtos.LocataireDTO;
 import com.immoGestion.backend.dtos.LocataireDetailDTO;
 import com.immoGestion.backend.dtos.LocataireLogementAssociationDTO;
 import com.immoGestion.backend.services.serviceInterfaces.LocataireService;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/admin/locataires")
 public class LocataireController {
@@ -46,14 +48,38 @@ public class LocataireController {
 
 
     @PostMapping("/assign-logement")
+    @PermitAll
     public ResponseEntity<String> assignLogement(@RequestBody LocataireLogementAssociationDTO dto) {
-        locataireService.assignLogementToLocataire(dto);
-        return ResponseEntity.ok("Logement assigné avec succès !");
+       try {
+           locataireService.assignLogementToLocataire(dto);
+           return ResponseEntity.ok("Logement assigné avec succès !");
+       }catch (RuntimeException e){
+           return ResponseEntity.badRequest().body(e.getMessage());
+       }
     }
 
     @GetMapping("/{id}/details")
     public ResponseEntity<LocataireDetailDTO> getDetails(@PathVariable Long id) {
         return ResponseEntity.ok(locataireService.getLocataireDetail(id));
+    }
+
+
+
+    @PostMapping("/liberer-logement")
+    @PermitAll
+    public ResponseEntity<String> libererLogement(@RequestBody LocataireLogementAssociationDTO dto) {
+        locataireService.libererLogement(dto.getLocatairId(), dto.getLogementId());
+        return ResponseEntity.ok("Logement libéré avec succès !");
+    }
+
+
+
+    @DeleteMapping("/{idLocataire}/dissocier/{idLogement}")
+    public ResponseEntity<String> dissocierLogement(
+            @PathVariable Long idLocataire,
+            @PathVariable Long idLogement) {
+        locataireService.dissocierLocataire(idLocataire, idLogement);
+        return ResponseEntity.ok("Dissociation réussie");
     }
 
 }
