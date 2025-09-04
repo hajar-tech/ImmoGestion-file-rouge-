@@ -3,18 +3,27 @@ package com.immoGestion.backend.security;
 import com.immoGestion.backend.services.securityService.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
+
 public class SecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
+    private final JwtUtil jwtUtil;
 
-    public SecurityConfig (UserDetailsServiceImpl userDetailsService){
+    public SecurityConfig (UserDetailsServiceImpl userDetailsService,
+                           JwtUtil jwtUtil){
         this.userDetailsService = userDetailsService;
+        this.jwtUtil = jwtUtil;
     }
 
     @Bean
@@ -23,14 +32,15 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/logements/**").permitAll()
-                        .requestMatchers("/admin/locataires/**").permitAll()
+                        .requestMatchers("/api/logements/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/locataires/**").hasRole("ADMIN")
                         .requestMatchers("/swagger-ui.html").permitAll() // The main Swagger UI page
                         .requestMatchers("/swagger-ui/**").permitAll()   // Static resources (JS, CSS, images)
                         .requestMatchers("/v3/api-docs/**").permitAll()  // The OpenAPI JSON/YAML definitions
                         .requestMatchers("/api-docs/**").permitAll()     // Sometimes this path is also used
                         .requestMatchers("/webjars/**").permitAll()
                         .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .userDetailsService(userDetailsService)
                 .build();
     }
@@ -38,6 +48,11 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter(jwtUtil, userDetailsService);
     }
 
 }

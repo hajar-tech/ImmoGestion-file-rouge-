@@ -9,12 +9,13 @@ import org.mapstruct.Mapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
 
-    private final String secretKey = "maCleSuperSecrete123456789012345";
+    private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long expirationTime = 86400000;// 1 jour
 
 
@@ -25,10 +26,10 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(user.getEmail())
                 .claim("id", user.getId())
-                .claim("role" , role)
+                .claim("role" ,"ROLE_" + role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+expirationTime))
-                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -52,6 +53,8 @@ public class JwtUtil {
         private boolean isTokenExpired(String token) {
             return extractAllClaims(token).getExpiration().before(new Date());
         }
+
+
 
 
 
