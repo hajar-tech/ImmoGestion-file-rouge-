@@ -15,6 +15,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/admin/locataires")
+
 public class LocataireController {
     private final LocataireService locataireService;
 
@@ -23,35 +24,35 @@ public class LocataireController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping
     public LocataireDTO creerLocataire(@RequestBody LocataireDTO dto) {
         return locataireService.creerLocataire(dto);
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PutMapping("/{id}")
     public LocataireDTO modifierLocataire(@PathVariable Long id, @RequestBody LocataireDTO dto) {
         return locataireService.modifierLocataire(id, dto);
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @DeleteMapping("/{id}")
     public void supprimerLocataire(@PathVariable Long id) {
         locataireService.supprimerLocataire(id);
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping
     public List<LocataireDTO> getAllLocataires() {
         return locataireService.getAllLocataires();
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping("/{id}")
     public Optional<LocataireDTO> getLocataire(@PathVariable Long id) {
         return locataireService.getLocataireById(id);
@@ -59,7 +60,7 @@ public class LocataireController {
 
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping("/assign-logement")
     public ResponseEntity<String> assignLogement(@RequestBody LocataireLogementAssociationDTO dto) {
        try {
@@ -71,7 +72,7 @@ public class LocataireController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping("/{id}/details")
     public ResponseEntity<LocataireDetailDTO> getDetails(@PathVariable Long id) {
         return ResponseEntity.ok(locataireService.getLocataireDetail(id));
@@ -80,7 +81,7 @@ public class LocataireController {
 
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping("/liberer-logement")
     @PermitAll
     public ResponseEntity<String> libererLogement(@RequestBody LocataireLogementAssociationDTO dto) {
@@ -91,7 +92,7 @@ public class LocataireController {
 
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @DeleteMapping("/{idLocataire}/dissocier/{idLogement}")
     public ResponseEntity<String> dissocierLogement(
             @PathVariable Long idLocataire,

@@ -77,18 +77,18 @@
         </div>
 
         <!-- Statut -->
-<!--        <div>-->
-<!--          <label for="statut" class="block text-sm font-medium text-gray-700">Statut</label>-->
-<!--          <select id="statut" formControlName="statut" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">-->
-<!--            <option value="" disabled>Sélectionner un statut</option>-->
-<!--            <option value="LIBRE">Libre</option>-->
-<!--            <option value="OCCUPE">Occupé</option>-->
-<!--            <option value="MAINTENANCE">Maintenance</option>-->
-<!--          </select>-->
-<!--          <div *ngIf="addLogementForm.get('statut')?.invalid && (addLogementForm.get('statut')?.dirty || addLogementForm.get('statut')?.touched)" class="text-red-500 text-xs mt-1">-->
-<!--            Un statut est requis.-->
-<!--          </div>-->
-<!--        </div>-->
+        <div>
+          <label for="statut" class="block text-sm font-medium text-gray-700">Statut</label>
+          <select id="statut" formControlName="statut" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            <option value="" disabled>Sélectionner un statut</option>
+            <option value="LIBRE">Libre</option>
+            <option value="OCCUPE">Occupé</option>
+            <option value="MAINTENANCE">Maintenance</option>
+          </select>
+          <div *ngIf="addLogementForm.get('statut')?.invalid && (addLogementForm.get('statut')?.dirty || addLogementForm.get('statut')?.touched)" class="text-red-500 text-xs mt-1">
+            Un statut est requis.
+          </div>
+        </div>
 
         <!-- Description (span deux colonnes) -->
         <div class="md:col-span-2">

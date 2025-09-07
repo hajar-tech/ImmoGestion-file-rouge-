@@ -21,16 +21,18 @@ export class AuthService {
   }
 
 
-  login(email : string , password : string){
+  login(email : string , password : string): Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/login`,{email , password})
       .pipe(
         tap(res => {
           // Stocker token + rôle + userId
           localStorage.clear();
           localStorage.setItem('token', res.token);
-          localStorage.setItem('role' , res.role);
-          localStorage.setItem('userId',res.userId);
-        })
+          console.log("Token saved in localeStorage :" , res.token)
+
+          //const payload = JSON.parse(atob(res.token.split('.')[1]));
+         // localStorage.setItem('role' , payload.role);
+         })
       );
   }
 
@@ -43,7 +45,15 @@ export class AuthService {
   }
 
   getUserRole(): string | null {
-    return localStorage.getItem('role');
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return (payload.role ?? '').replace('ROLE_', '');
+    } catch {
+      return null;
+    }
   }
 
 

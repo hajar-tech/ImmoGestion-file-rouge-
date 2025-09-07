@@ -22,12 +22,15 @@ export const routes: Routes = [
     path : 'admin' ,
     component: AdminComponent,
     canActivate : [authGuard, roleGuard], //si non authentifier bloqué l'accès
-    data:{roles: ['Admin']},//vérifier les roles
+    data:{roles: ['ADMIN']},//vérifier les roles
       children: [
          {path: '', redirectTo: 'logementAdmin', pathMatch: 'full' },
-         {path : 'locataireAdmin' , component : LocataireComponent},
-         {path : 'logementAdmin' , component : LogementComponent},
-         {path: 'locataireDetails/:id', component: DetailLocataireComponent }
+         {path : 'locataireAdmin' , component : LocataireComponent , canActivate : [authGuard, roleGuard], //si non authentifier bloqué l'accès
+           data:{roles: ['ADMIN']},},
+         {path : 'logementAdmin' , component : LogementComponent , canActivate : [authGuard, roleGuard], //si non authentifier bloqué l'accès
+           data:{roles: ['ADMIN']},},
+         {path: 'locataireDetails/:id', component: DetailLocataireComponent , canActivate : [authGuard, roleGuard], //si non authentifier bloqué l'accès
+           data:{roles: ['ADMIN']}, }
       ]
   },
 

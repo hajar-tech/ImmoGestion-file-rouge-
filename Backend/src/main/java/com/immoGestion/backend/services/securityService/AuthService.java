@@ -11,6 +11,8 @@ import com.immoGestion.backend.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.awt.desktop.SystemEventListener;
+
 @Service
 public class AuthService {
     private final UserRepository userRepository;
@@ -56,8 +58,9 @@ public class AuthService {
         }
 
         String token = jwtUtil.generateToken(utilisateur);
-        String role = utilisateur.getClass().getSimpleName().toUpperCase();
-
+        String role =  utilisateur.getClass().getSimpleName().toUpperCase();
+        System.out.println("token est :"+ token);
+        System.out.println("le role est :" + role);
         return new LoginResponse(token, utilisateur.getId(),role , utilisateur.getEmail());
 
 

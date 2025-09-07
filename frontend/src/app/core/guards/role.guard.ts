@@ -13,9 +13,15 @@ export const roleGuard: CanActivateFn = (route, state) => {
   }
 
   try {
-    //découper le token pur extrire le role
-  //  const payload = JSON.parse(atob(token.split('.')[1]));
-    const userRole = localStorage.getItem('role');
+    //décoder le token pur extraire le role
+   const payload = JSON.parse(atob(token.split('.')[1]));
+
+    console.log('Payload complet:', payload);
+    console.log('Role extrait:', payload.role);
+
+    // Récupérer le rôle depuis le token, retirer le préfixe ROLE_ si besoin
+    const userRole : string = payload.role;
+    console.log("role in roleGuard est :" , userRole);
 
     //vérifier l'accès du role
     const allowedRoles = route.data['roles'] as Array<string>;
