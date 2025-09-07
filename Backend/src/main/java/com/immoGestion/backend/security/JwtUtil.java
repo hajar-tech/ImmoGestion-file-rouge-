@@ -15,7 +15,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final SecretKey secretKey = Keys.hmacShaKeyFor("votreSuperSecretKeyPourJWT123456789012345678901234567890".getBytes());
     private final long expirationTime = 86400000;// 1 jour
 
 
@@ -34,7 +34,10 @@ public class JwtUtil {
     }
 
     public Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
     }
         public String extractEmail(String token) {
             return extractAllClaims(token).getSubject();
