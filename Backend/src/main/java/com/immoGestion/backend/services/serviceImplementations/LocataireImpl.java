@@ -39,7 +39,14 @@ public class LocataireImpl implements LocataireService {
 
     @Override
     public LocataireDTO creerLocataire(LocataireDTO dto) {
+
+        if (locataireRepository.existsByEmail(dto.getEmail())) {
+            throw new RuntimeException("Email déjà utilisé");
+        }
+
         Locataire locataire = locataireMapper.toEntity(dto);
+        locataire.setPassword(passwordEncoder.encode(locataire.getPassword()));
+
         Locataire saved = locataireRepository.save(locataire);
         return locataireMapper.toDto(saved);
     }

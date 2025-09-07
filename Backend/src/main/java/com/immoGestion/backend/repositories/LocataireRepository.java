@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface LocataireRepository extends JpaRepository<Locataire , Long> {
     Optional<Locataire> findByLogement_IdLogement(Long logementId);
+
+     boolean existsByEmail(String email);
 }

@@ -9,12 +9,13 @@ import org.mapstruct.Mapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
 
-    private final String secretKey = "maCleSuperSecrete123456789012345";
+    private final SecretKey secretKey = Keys.hmacShaKeyFor("votreSuperSecretKeyPourJWT123456789012345678901234567890".getBytes());
     private final long expirationTime = 86400000;// 1 jour
 
 
@@ -25,15 +26,18 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(user.getEmail())
                 .claim("id", user.getId())
-                .claim("role" , role)
+                .claim("role" ,role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+expirationTime))
-                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
     }
         public String extractEmail(String token) {
             return extractAllClaims(token).getSubject();
@@ -52,6 +56,8 @@ public class JwtUtil {
         private boolean isTokenExpired(String token) {
             return extractAllClaims(token).getExpiration().before(new Date());
         }
+
+
 
 
 

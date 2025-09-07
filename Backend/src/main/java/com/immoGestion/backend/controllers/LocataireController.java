@@ -6,6 +6,7 @@ import com.immoGestion.backend.dtos.LocataireLogementAssociationDTO;
 import com.immoGestion.backend.services.serviceInterfaces.LocataireService;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/admin/locataires")
+
 public class LocataireController {
     private final LocataireService locataireService;
 
@@ -21,25 +23,35 @@ public class LocataireController {
         this.locataireService = locataireService;
     }
 
+
+
     @PostMapping
     public LocataireDTO creerLocataire(@RequestBody LocataireDTO dto) {
         return locataireService.creerLocataire(dto);
     }
+
+
 
     @PutMapping("/{id}")
     public LocataireDTO modifierLocataire(@PathVariable Long id, @RequestBody LocataireDTO dto) {
         return locataireService.modifierLocataire(id, dto);
     }
 
+
+
     @DeleteMapping("/{id}")
     public void supprimerLocataire(@PathVariable Long id) {
         locataireService.supprimerLocataire(id);
     }
 
+
+
     @GetMapping
     public List<LocataireDTO> getAllLocataires() {
         return locataireService.getAllLocataires();
     }
+
+
 
     @GetMapping("/{id}")
     public Optional<LocataireDTO> getLocataire(@PathVariable Long id) {
@@ -47,8 +59,9 @@ public class LocataireController {
     }
 
 
+
+
     @PostMapping("/assign-logement")
-    @PermitAll
     public ResponseEntity<String> assignLogement(@RequestBody LocataireLogementAssociationDTO dto) {
        try {
            locataireService.assignLogementToLocataire(dto);
@@ -58,10 +71,14 @@ public class LocataireController {
        }
     }
 
+
+
     @GetMapping("/{id}/details")
     public ResponseEntity<LocataireDetailDTO> getDetails(@PathVariable Long id) {
         return ResponseEntity.ok(locataireService.getLocataireDetail(id));
     }
+
+
 
 
 
@@ -71,6 +88,8 @@ public class LocataireController {
         locataireService.libererLogement(dto.getLocatairId(), dto.getLogementId());
         return ResponseEntity.ok("Logement libéré avec succès !");
     }
+
+
 
 
 

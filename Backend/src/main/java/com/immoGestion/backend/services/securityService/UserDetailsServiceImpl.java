@@ -24,7 +24,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Utilisateur user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable !"));
 
+        // Récupérer la valeur du discriminator (nom de la sous-classe)
         String role = user.getClass().getSimpleName().toUpperCase();
+
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),

@@ -10,6 +10,8 @@ import {LogementComponent} from './pages/adminDashboard/Logementpages/logement/l
 import {
   DetailLocataireComponent
 } from './pages/adminDashboard/Locatairepages/detail-locataire/detail-locataire.component';
+import {authGuard} from './core/guards/auth.guard';
+import {roleGuard} from './core/guards/role.guard';
 
 export const routes: Routes = [
   {path: '' , redirectTo: 'home' , pathMatch: 'full'},
@@ -17,20 +19,33 @@ export const routes: Routes = [
   {path : 'login' , component: LoginComponent},
   {path : 'register' , component: RegisterComponent},
   {
-    path : 'admin' , component: AdminComponent,
-
-    children: [
-      { path: '', redirectTo: 'logementAdmin', pathMatch: 'full' },
-      {path : 'locataireAdmin' , component : LocataireComponent},
-      {path : 'logementAdmin' , component : LogementComponent},
-      { path: 'locataireDetails/:id', component: DetailLocataireComponent }
-    ]
+    path : 'admin' ,
+    component: AdminComponent,
+    canActivate : [authGuard, roleGuard], //si non authentifier bloqué l'accès
+    data:{roles: ['ADMIN']},//vérifier les roles
+      children: [
+         {path: '', redirectTo: 'logementAdmin', pathMatch: 'full' },
+         {path : 'locataireAdmin' , component : LocataireComponent , canActivate : [authGuard, roleGuard], //si non authentifier bloqué l'accès
+           data:{roles: ['ADMIN']},},
+         {path : 'logementAdmin' , component : LogementComponent , canActivate : [authGuard, roleGuard], //si non authentifier bloqué l'accès
+           data:{roles: ['ADMIN']},},
+         {path: 'locataireDetails/:id', component: DetailLocataireComponent , canActivate : [authGuard, roleGuard], //si non authentifier bloqué l'accès
+           data:{roles: ['ADMIN']}, }
+      ]
   },
 
 
 
-  {path : 'client_property' , component: ClientMainComponent},
-  {path : 'detail_logement' , component : DetailsComponent},
+  {
+    path : 'client_property' ,
+    component: ClientMainComponent,
+    canActivate: [authGuard, roleGuard],
+    data: {roles: ['LOCATAIRE']}
+  },
+  {
+    path : 'detail_logement' ,
+    component : DetailsComponent
+  },
 
 
 ];
