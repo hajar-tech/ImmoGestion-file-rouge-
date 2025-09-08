@@ -152,6 +152,14 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>4.0.0.4121</version> <!-- latest stable, compatible m3a Maven 3.8+ w Java 17 -->
+            </plugin>
+
+
         </plugins>
     </build>
 
