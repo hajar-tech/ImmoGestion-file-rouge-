@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-sidebare',
@@ -11,5 +11,14 @@ import {RouterLink} from '@angular/router';
   styleUrl: './sidebare.component.css'
 })
 export class SidebareComponent {
+
+  constructor(private router : Router) {
+  }
+
+  logOut():void{
+    localStorage.clear();
+    this.router.navigate(['/login']);
+
+  }
 
 }

@@ -12,12 +12,14 @@ import {
 } from './pages/adminDashboard/Locatairepages/detail-locataire/detail-locataire.component';
 import {authGuard} from './core/guards/auth.guard';
 import {roleGuard} from './core/guards/role.guard';
+import {OurServiceComponent} from './pages/homePage/our-service/our-service.component';
 
 export const routes: Routes = [
   {path: '' , redirectTo: 'home' , pathMatch: 'full'},
   {path : 'home' , component: HomeComponent},
   {path : 'login' , component: LoginComponent},
   {path : 'register' , component: RegisterComponent},
+  {path : 'service' , component: OurServiceComponent},
   {
     path : 'admin' ,
     component: AdminComponent,

@@ -1,7 +1,14 @@
+
+<div class="flex justify-between items-center">
+  <h2 class="text-2xl font-semibold">Liste des Locataires</h2>
+  <button (click)="openAddModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    Ajouter
+  </button>
+</div>
+
+
 <div class="p-6">
 
-
-  <!-- Container table avec scroll horizontal & vertical -->
   <div class="overflow-x-auto overflow-y-auto max-h-96 max-w-full rounded-lg shadow-lg border border-gray-200">
     <table class="min-w-[900px] w-full bg-white">
       <thead>
@@ -13,7 +20,7 @@
         <th class="py-3 px-6 text-left">Téléphone</th>
         <th class="py-3 px-6 text-left">Situation Familiale</th>
         <th class="py-3 px-6 text-left">Email</th>
-        <th class="py-3 px-6 text-left">Password</th>
+<!--        <th class="py-3 px-6 text-left">Password</th>-->
         <th class="py-3 px-6 text-center">Actions</th>
       </tr>
       </thead>
@@ -22,10 +29,10 @@
         <td class="py-3 px-6">{{ locataire.nom }}</td>
         <td class="py-3 px-6">{{ locataire.prenom }}</td>
         <td class="py-3 px-6">{{ locataire.carteIdentite }}</td>
-        <td class="py-3 px-6">{{ locataire.numeroTelephone }}</td>
+        <td class="py-3 px-6 ">{{ locataire.numeroTelephone }}</td>
         <td class="py-3 px-6">{{ locataire.situationFamiliale }}</td>
         <td class="py-3 px-6">{{ locataire.email }}</td>
-        <td class="py-3 px-6">{{ locataire.password }}</td>
+<!--        <td class="py-3 px-6">{{ locataire.password }}</td>-->
 
         <!-- Colonne Actions -->
         <td class="py-3 px-6 flex space-x-2 justify-center">
@@ -35,13 +42,6 @@
             class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm">
             Éditer
           </button>
-          <!-- Bouton Associer -->
-<!--          <button-->
-<!--            (click)="associerLocataire(locataire)"-->
-<!--            class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-sm">-->
-<!--            Associer-->
-<!--          </button>-->
-          <!-- Bouton Supprimer -->
           <button
             (click)="deleteLocataire(locataire.id)"
             class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm">
@@ -55,13 +55,6 @@
             Voir détails
           </button>
 
-<!--          <button-->
-<!--            class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"-->
-<!--            (click)="libererLocataire(locataire)"-->
-<!--            *ngIf="locataire.logementId"  &lt;!&ndash; Affiche seulement si le locataire a un logement associé &ndash;&gt;-->
-<!--          >-->
-<!--          Libérer Logement-->
-<!--          </button>-->
 
 
 
@@ -71,12 +64,19 @@
     </table>
   </div>
 
+  <app-add-locataire
+    *ngIf="showAddModal"
+    (close)="closeAddModal()"
+    (saved)="onLocataireAdded($event)">
+  </app-add-locataire>
+
   <app-edit-locataire
     *ngIf="showEditModal"
     [locataire]="locataireToEdit"
     (close)="onEditClose()"
     (updated)="onLocataireUpdated($event)">
   </app-edit-locataire>
+
 
 
 

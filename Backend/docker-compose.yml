@@ -10,7 +10,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: userpass
     ports:
-      - "3307:3306" # نخلي DB متاحة على 3307
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
