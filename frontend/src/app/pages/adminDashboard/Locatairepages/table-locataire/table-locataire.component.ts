@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Locataire} from '../../../../moduls/Locataire';
 import {LocataireService} from '../../../../core/Locataire/locataire.service';
 import {NgForOf, NgIf} from '@angular/common';
@@ -8,6 +8,7 @@ import {LocataireDetails} from '../../../../moduls/LocataireDetails';
 import {LocataireLogementAssociation} from '../../../../moduls/LocataireLogementAssociation';
 import {DetailLocataireComponent} from '../detail-locataire/detail-locataire.component';
 import {RouterLink} from '@angular/router';
+import {AddLocataireComponent} from '../add-locataire/add-locataire.component';
 
 @Component({
   selector: 'app-table-locataire',
@@ -15,39 +16,41 @@ import {RouterLink} from '@angular/router';
     NgForOf,
     EditLocataireComponent,
     NgIf,
-    AssocierLocataireComponent,
-    DetailLocataireComponent,
-    RouterLink
+    RouterLink,
+    AddLocataireComponent,
   ],
   templateUrl: './table-locataire.component.html',
   styleUrl: './table-locataire.component.css'
 })
 export class TableLocataireComponent implements  OnInit{
 
+
+  showAddModal: boolean = false;
+
   locataires : Locataire[] = [];
   showEditModal: boolean = false;
   locataireToEdit!: Locataire;
 
-  showDetailModal: boolean = false;
-  locataireToShowId!: number;
 
 
   constructor( private locataireService : LocataireService) {
   }
 
+  ngOnInit(): void {
+    this.fetchLocataires();
+  }
 
   fetchLocataires(): void{
 
     this.locataireService.getAllLocataires().subscribe({
-      next : (res)=> this.locataires = res,
+      next : (res)=> {
+        this.locataires = res;
+        },
       error : (err) => console.log("error lors du chargement des locataires !" , err)
     });
 
   }
 
-  ngOnInit(): void {
-    this.fetchLocataires();
-  }
 
   deleteLocataire(id: number) {
 
@@ -81,39 +84,21 @@ export class TableLocataireComponent implements  OnInit{
     if (index !== -1) this.locataires[index] = updatedLocataire;
   }
 
-  libererLocataire(locataire: LocataireLogementAssociation) {
-    if (!locataire.locatairId) {
-      alert("Ce locataire n'a pas de logement à libérer !");
-      return;
-    }
+  openAddModal() {
+    this.showAddModal = true;
+  }
 
-    if (confirm("Voulez-vous vraiment libérer le logement de ce locataire ?")) {
-      const body: LocataireLogementAssociation = {
-        locatairId: locataire.locatairId!,      // id du locataire
-        logementId: locataire.logementId // id du logement associé
-      };
+  closeAddModal() {
+    this.showAddModal = false;
+  }
 
-      this.locataireService.libererLogement(body).subscribe({
-        next: () => {
-          alert("Logement libéré avec succès !");
-          this.fetchLocataires(); // recharge la liste
-        },
-        error: (err) => {
-          alert("Erreur : " + err.error);
-        }
-      });
-    }
+  onLocataireAdded(locataire: Locataire) {
+    // ajouter le locataire au tableau
+    this.locataires.push(locataire);
+    this.closeAddModal();
   }
 
 
-  voirDetails(id: number) {
-    this.locataireToShowId = id;
-    this.showDetailModal = true;
-  }
-
-  onDetailClose() {
-    this.showDetailModal = false;
-  }
 
 
 }

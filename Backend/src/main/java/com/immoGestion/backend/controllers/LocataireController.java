@@ -6,7 +6,6 @@ import com.immoGestion.backend.dtos.LocataireLogementAssociationDTO;
 import com.immoGestion.backend.services.serviceInterfaces.LocataireService;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

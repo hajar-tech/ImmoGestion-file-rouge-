@@ -34,7 +34,11 @@ export class AddLocataireComponent {
 
     const locataire : Locataire = this.locataireForm.value;
     this.locataireService.createLocataire(locataire).subscribe({
-      next: (res) => this.saved.emit(res),
+      next: (res) => {
+        this.saved.emit(res);
+        this.close.emit();
+        this.locataireForm.reset();
+      },
       error: (err)=> console.error(err)
     });
 
