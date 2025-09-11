@@ -61,7 +61,5 @@ export class LocataireService {
   }
 
 
-  dissocierLogement(locataireId: number) {
 
-  }
 }
