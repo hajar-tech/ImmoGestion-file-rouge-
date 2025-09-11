@@ -17,7 +17,7 @@ export class SidebareComponent {
 
   logOut():void{
     localStorage.clear();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
 
   }
 
