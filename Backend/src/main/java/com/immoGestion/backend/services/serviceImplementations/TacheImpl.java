@@ -1,6 +1,7 @@
 package com.immoGestion.backend.services.serviceImplementations;
 
 import com.immoGestion.backend.Enums.StatusTache;
+import com.immoGestion.backend.Enums.TypeTache;
 import com.immoGestion.backend.dtos.TacheDTO;
 import com.immoGestion.backend.mapper.TacheMapper;
 import com.immoGestion.backend.models.Locataire;
@@ -11,6 +12,8 @@ import com.immoGestion.backend.repositories.LogementRepository;
 import com.immoGestion.backend.repositories.TacheRepository;
 import com.immoGestion.backend.services.serviceInterfaces.TacheService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TacheImpl implements TacheService {
@@ -41,6 +44,7 @@ public class TacheImpl implements TacheService {
 
 
         Tache tache = tacheMapper.toEntity(dto);
+        System.out.println(tache.toString());
 
         tache.setLogement(logement);
         tache.setLocataire(locataire);
@@ -50,5 +54,21 @@ public class TacheImpl implements TacheService {
         Tache saved = tacheRepository.save(tache);
         return tacheMapper.toDTO(saved);
 
+    }
+
+    @Override
+    public List<TacheDTO> getIncidentsByLocataire(Long locataireId) {
+        List<Tache> incidents = tacheRepository.findByLocataireIdAndTypeTache(locataireId, TypeTache.INCIDENT);
+        return incidents.stream()
+                .map(tacheMapper::toDTO)
+                        .toList();
+    }
+
+    @Override
+    public List<TacheDTO> getAllTaches() {
+        List<Tache> taches = tacheRepository.findAll();
+      return taches.stream()
+              .map(tache -> tacheMapper.toDTO(tache))
+              .toList();
     }
 }

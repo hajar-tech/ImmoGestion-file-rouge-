@@ -38,8 +38,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers( "/api/logements/**").hasRole("ADMIN")
-                        .requestMatchers("/admin/locataires/**").hasRole("ADMIN")
+                        .requestMatchers( "/api/logements/**").permitAll()
+                        .requestMatchers("/admin/locataires/**").permitAll()
                         .requestMatchers("/swagger-ui.html").permitAll() // The main Swagger UI page
                         .requestMatchers("/swagger-ui/**").permitAll()   // Static resources (JS, CSS, images)
                         .requestMatchers("/v3/api-docs/**").permitAll()  // The OpenAPI JSON/YAML definitions

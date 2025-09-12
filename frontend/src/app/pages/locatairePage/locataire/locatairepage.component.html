@@ -1,0 +1,22 @@
+
+<div class="p-6 bg-gray-100 min-h-screen">
+  <h2 class="text-xl font-bold mb-4">Bienvenue, {{ locataireDetails?.prenom }} {{ locataireDetails?.nom }}</h2>
+
+  <div *ngIf="locataireDetails?.idLogement; else noLogement" class="p-4 bg-white rounded-lg shadow">
+    <h3 class="font-semibold text-lg mb-2">Votre logement</h3>
+    <p><strong>Appartement :</strong> {{ locataireDetails?.numeroAppartement }}</p>
+    <p><strong>Étage :</strong> {{ locataireDetails?.etageNumber }}</p>
+    <p><strong>Surface :</strong> {{ locataireDetails?.surface }} m²</p>
+    <p><strong>Prix :</strong> {{ locataireDetails?.prix }} MAD</p>
+    <p><strong>Type :</strong> {{ locataireDetails?.type }}</p>
+
+    <button (click)="openIncidentModal()"
+            class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+      Signaler un incident
+    </button>
+  </div>
+
+  <ng-template #noLogement>
+    <p class="text-gray-600">Vous n’avez pas encore de logement associé.</p>
+  </ng-template>
+</div>

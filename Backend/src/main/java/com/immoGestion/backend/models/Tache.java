@@ -15,7 +15,7 @@ public class Tache {
   private String description;
 
   @Enumerated(EnumType.STRING)
-  private CategorieTache categorieTacheTache;
+  private CategorieTache categorieTache;
 
   @Enumerated(EnumType.STRING)
   private TypeTache typeTache;
@@ -49,12 +49,12 @@ public class Tache {
     this.description = description;
   }
 
-  public CategorieTache getCategorieTacheTache() {
-    return categorieTacheTache;
+  public CategorieTache getCategorieTache() {
+    return categorieTache;
   }
 
-  public void setCategorieTacheTache(CategorieTache categorieTacheTache) {
-    this.categorieTacheTache = categorieTacheTache;
+  public void setCategorieTache(CategorieTache categorieTache) {
+    this.categorieTache = categorieTache;
   }
 
   public TypeTache getTypeTache() {

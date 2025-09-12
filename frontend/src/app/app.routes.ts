@@ -13,6 +13,7 @@ import {
 import {authGuard} from './core/guards/auth.guard';
 import {roleGuard} from './core/guards/role.guard';
 import {OurServiceComponent} from './pages/homePage/our-service/our-service.component';
+import {LocatairepageComponent} from './pages/locatairePage/locataire/locatairepage.component';
 
 export const routes: Routes = [
   {path: '' , redirectTo: 'home' , pathMatch: 'full'},
@@ -40,7 +41,7 @@ export const routes: Routes = [
 
   {
     path : 'client_property' ,
-    component: ClientMainComponent,
+    component: LocatairepageComponent,
     canActivate: [authGuard, roleGuard],
     data: {roles: ['LOCATAIRE']}
   },
