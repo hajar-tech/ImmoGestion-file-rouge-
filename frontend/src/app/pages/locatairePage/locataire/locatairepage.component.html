@@ -1,22 +1,96 @@
 
-<div class="p-6 bg-gray-100 min-h-screen">
-  <h2 class="text-xl font-bold mb-4">Bienvenue, {{ locataireDetails?.prenom }} {{ locataireDetails?.nom }}</h2>
+<app-navebar></app-navebar>
 
-  <div *ngIf="locataireDetails?.idLogement; else noLogement" class="p-4 bg-white rounded-lg shadow">
-    <h3 class="font-semibold text-lg mb-2">Votre logement</h3>
-    <p><strong>Appartement :</strong> {{ locataireDetails?.numeroAppartement }}</p>
-    <p><strong>Étage :</strong> {{ locataireDetails?.etageNumber }}</p>
-    <p><strong>Surface :</strong> {{ locataireDetails?.surface }} m²</p>
-    <p><strong>Prix :</strong> {{ locataireDetails?.prix }} MAD</p>
-    <p><strong>Type :</strong> {{ locataireDetails?.type }}</p>
+<div class="pt-20 bg-gray-100 min-h-screen" style="background: linear-gradient(to right, #e0f2fe, #ffffff, #e0f2fe);">
+  <div class="container mx-auto px-4 md:px-8 lg:px-12 py-10">
 
-    <button (click)="openIncidentModal()"
-            class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-      Signaler un incident
-    </button>
+    <header class="text-center md:text-left mb-12">
+      <h2 class="text-4xl font-extrabold text-blue-800">
+        Bienvenue,
+        <span class="text-blue-500">{{ locataireDetails?.prenom }} {{ locataireDetails?.nom }}</span>
+      </h2>
+      <p class="text-gray-600 mt-2 text-lg">Gérez votre logement et vos incidents en toute simplicité.</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+      <div *ngIf="locataireDetails?.idLogement; else noLogement"
+           class="lg:col-span-2 bg-white rounded-2xl shadow-xl p-8 transition-transform transform hover:scale-105 duration-300">
+
+        <h3 class="font-bold text-2xl text-blue-700 mb-4 border-b-2 border-blue-100 pb-3">
+          🏠 Votre logement
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-gray-700 text-lg">
+          <p><strong>Appartement :</strong> {{ locataireDetails?.numeroAppartement }}</p>
+          <p><strong>Étage :</strong> {{ locataireDetails?.etageNumber }}</p>
+          <p><strong>Surface :</strong> {{ locataireDetails?.surface }} m²</p>
+          <p><strong>Prix :</strong> {{ locataireDetails?.prix }} MAD</p>
+          <p class="sm:col-span-2"><strong>Type :</strong> {{ locataireDetails?.type }}</p>
+        </div>
+
+        <div class="flex justify-center md:justify-end mt-8">
+          <button (click)="openModal()"
+                  class="bg-red-600 text-white font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300 transform hover:scale-105">
+            🚨 Signaler un incident
+          </button>
+        </div>
+      </div>
+
+      <div class="lg:col-span-1 bg-white rounded-2xl shadow-xl p-8 transition-transform transform hover:scale-105 duration-300">
+        <h3 class="font-bold text-2xl text-blue-700 mb-4 border-b-2 border-blue-100 pb-3">
+          📋 Vos incidents signalés
+        </h3>
+
+        <div *ngIf="incidents.length > 0; else noIncident"
+             class="space-y-4 max-h-60 overflow-y-auto pr-2">
+          <div *ngFor="let incident of incidents"
+               class="p-5 bg-gray-50 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+            <p class="font-medium text-gray-800 text-base mb-1">
+              <strong>Catégorie :</strong> {{ incident.categorieTache }}
+            </p>
+            <p class="text-gray-600 mb-2 text-sm">
+              <strong>Description :</strong> {{ incident.description }}
+            </p>
+            <p>
+              <strong>Statut :</strong>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold"
+                    [ngClass]="{
+                  'bg-yellow-200 text-yellow-800': incident.statut === 'EN_ATTENTE',
+                  'bg-green-200 text-green-800': incident.statut === 'RESOLU',
+                  'bg-red-200 text-red-800': incident.statut === 'EN_COURS'
+                }">
+                {{ incident.statut }}
+              </span>
+            </p>
+          </div>
+        </div>
+        <ng-template #noIncident>
+          <p class="text-gray-500 text-center py-8">Aucun incident signalé pour l’instant. Tout est en ordre !</p>
+        </ng-template>
+      </div>
+
+    </div>
+
+    <ng-template #noLogement>
+      <div class="text-center mt-12 bg-white rounded-xl shadow-md p-8">
+        <p class="text-gray-600 text-xl font-medium">
+          Vous n’avez pas encore de logement associé.
+        </p>
+        <p class="text-gray-500 mt-2">Veuillez contacter l'administration pour plus d'informations.</p>
+      </div>
+    </ng-template>
+
   </div>
 
-  <ng-template #noLogement>
-    <p class="text-gray-600">Vous n’avez pas encore de logement associé.</p>
-  </ng-template>
+  <app-add-tache
+    [showAddModal]="showAddModal"
+    (close)="closeModal()">
+  </app-add-tache>
 </div>
+
+
+
+
+
+

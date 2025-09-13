@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers( "/api/logements/**").permitAll()
                         .requestMatchers("/admin/locataires/**").permitAll()
+                        .requestMatchers("/api/taches/**").permitAll()
                         .requestMatchers("/swagger-ui.html").permitAll() // The main Swagger UI page
                         .requestMatchers("/swagger-ui/**").permitAll()   // Static resources (JS, CSS, images)
                         .requestMatchers("/v3/api-docs/**").permitAll()  // The OpenAPI JSON/YAML definitions

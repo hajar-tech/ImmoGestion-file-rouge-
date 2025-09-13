@@ -1,12 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {LocataireDetails} from '../../../moduls/LocataireDetails';
 import {LocataireService} from '../../../core/Locataire/locataire.service';
-import {NgIf} from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
+import {AddTacheComponent} from '../../tachePages/add-tache/add-tache.component';
+import {TacheService} from '../../../core/Tache/tache.service';
+import {NavebarComponent} from '../../../shared/navebar/navebar.component';
 
 @Component({
   selector: 'app-locataire',
   imports: [
-    NgIf
+    NgIf,
+    AddTacheComponent,
+    NgClass,
+    NgForOf,
+    NavebarComponent
   ],
   templateUrl: './locatairepage.component.html',
   styleUrl: './locatairepage.component.css'
@@ -14,18 +21,22 @@ import {NgIf} from '@angular/common';
 export class LocatairepageComponent implements OnInit{
 
   locataireDetails? : LocataireDetails;
+  showAddModal = false;
+  incidents: any[] = [];
+  userId!: number;
 
-  constructor(private locataireService : LocataireService) {
+  constructor(private locataireService : LocataireService,
+              private tacheService : TacheService)  {
   }
 
 
   ngOnInit(): void {
 
-    const userId = localStorage.getItem('userId');
-    console.log("user id est " +userId);
-    if (userId) {
+  this.userId = Number(localStorage.getItem('userId'));
+    console.log("user id est " + this.userId);
+    if (this.userId) {
 
-    this.locataireService.getLocataireDetail(+userId).subscribe(
+    this.locataireService.getLocataireDetail(this.userId).subscribe(
       {
         next : (res)=> {this.locataireDetails = res;
           if (res.idLogement){
@@ -37,10 +48,32 @@ export class LocatairepageComponent implements OnInit{
         }
       }
     );
-  }
+
+    this.loadIncidents();
+   }
+
+
   }
 
-  openIncidentModal() {
-
+  loadIncidents(){
+    this.tacheService.getIncidentsByLocataire(this.userId).subscribe({
+      next : (res)=>{
+        this.incidents = res;
+      },
+      error : (err)=>{
+        console.log("Erreur lors du chargement des incidents" , err);
+      }
+    });
   }
+
+
+  openModal(){
+    this.showAddModal = true;
+  }
+
+  closeModal(){
+    this.showAddModal = false;
+  }
+
+
 }
