@@ -28,10 +28,17 @@ export class AuthService {
           // Stocker token + rôle + userId
           localStorage.clear();
           localStorage.setItem('token', res.token);
+
           console.log("Token saved in localeStorage :" , res.token)
 
-          //const payload = JSON.parse(atob(res.token.split('.')[1]));
-         // localStorage.setItem('role' , payload.role);
+          // Save userId
+          localStorage.setItem('userId', res.userId);
+          console.log("UserId saved in localStorage:", res.userId);
+
+          // Save role
+          localStorage.setItem('role', res.role);
+          console.log("Role saved in localStorage:", res.role);
+
          })
       );
   }
@@ -44,17 +51,9 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
-  getUserRole(): string | null {
-    const token = localStorage.getItem('token');
-    if (!token) return null;
 
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return (payload.role ?? '').replace('ROLE_', '');
-    } catch {
-      return null;
-    }
+  getRole() : string | null{
+    return localStorage.getItem('role');
   }
-
 
 }

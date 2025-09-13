@@ -17,6 +17,9 @@ public class Locataire extends Utilisateur{
     @JoinColumn(name = "logement_id_logement", referencedColumnName = "id_logement")
     private Logement logement;
 
+    @OneToMany(mappedBy = "locataire")
+    private List<Tache> taches;
+
     public String getSituationFamiliale() {
         return situationFamiliale;
     }
@@ -39,5 +42,13 @@ public class Locataire extends Utilisateur{
 
     public void setLogement(Logement logement) {
         this.logement = logement;
+    }
+
+    public List<Tache> getTaches() {
+        return taches;
+    }
+
+    public void setTaches(List<Tache> taches) {
+        this.taches = taches;
     }
 }

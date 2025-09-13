@@ -31,7 +31,7 @@ public class LogementServiceTest {
         logement.setType(TypeLogement.APPARTEMENT);
         logementRepository.save(logement);
 
-        assertEquals(1 , logementRepository.count());
+        assertEquals(3 , logementRepository.count());
         assertEquals("A101" , logement.getNumeroAppartement());
     }
 

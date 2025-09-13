@@ -1,6 +1,8 @@
 package com.immoGestion.backend.Enums;
 
 public enum CategorieTache {
-    INCIDENT,
-    TACHE
+    MENAGE,
+    PANNE_EAU,
+    PANNE_ELECTRICITE,
+    AUTRE
 }

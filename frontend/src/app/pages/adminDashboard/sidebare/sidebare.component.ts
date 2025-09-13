@@ -12,12 +12,25 @@ import {Router, RouterLink} from '@angular/router';
 })
 export class SidebareComponent {
 
+  isOpen = false;
+
   constructor(private router : Router) {
+  }
+
+
+  toggleSidebar(){
+    this.isOpen = !this.isOpen;
+  }
+
+  closeSidebarOnMobile(){
+    if(window.innerWidth < 768){
+      this.isOpen = false;
+    }
   }
 
   logOut():void{
     localStorage.clear();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
 
   }
 

@@ -2,19 +2,26 @@
 <nav class="bg-white shadow-md fixed w-full z-50">
   <div class="container mx-auto flex items-center justify-between p-4">
     <!-- Logo -->
-    <a routerLink="/" class="text-2xl font-bold text-marine-blue">
-      🏠 ImmoGestion
-    </a>
+    <div class="flex items-center space-x-3">
+      <div class="bg-blue-600 p-2 rounded-full text-white">
+        <i class="fas fa-building text-xl"></i>
+      </div>
+      <span class="text-xl font-semibold text-gray-800">ImmoGestion</span>
+    </div>
 
     <!-- Boutons -->
     <div class="space-x-4">
-<!--      <a routerLink="/home"-->
-<!--         class="text-anthracite-grey hover:text-light-blue font-medium">Accueil</a>-->
-<!--      <a routerLink="/service"-->
-<!--         class="text-anthracite-grey hover:text-light-blue font-medium">Service</a>-->
-      <button routerLink="/login"
+      <button
+        *ngIf="!isLoggedIn"
+        routerLink="/login"
               class="bg-light-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
         Connexion
+      </button>
+
+      <button *ngIf="isLoggedIn"
+              (click)="logout()"
+              class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+        Déconnexion
       </button>
     </div>
   </div>
