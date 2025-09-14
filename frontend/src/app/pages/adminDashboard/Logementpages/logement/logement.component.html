@@ -1,103 +1,71 @@
-<!-- src/app/components/logement/logement.component.html -->
-<!-- This file contains the pure HTML and Tailwind CSS for the Logement management section. -->
-<!-- Dynamic content (e.g., *ngFor for cards) and interactive logic (e.g., (click) events) -->
-<!-- will be handled by the LogementComponent's TypeScript. -->
+<main class="flex-1 p-6 md:p-8 bg-gradient-to-br from-blue-100 to-white">
 
-<main class="flex-1 p-6 md:p-8">
-<!--  &lt;!&ndash; Mobile Header (Hamburger Menu) - This button will be managed by the main dashboard component &ndash;&gt;-->
-<!--  <header class="flex items-center justify-between md:hidden bg-white p-4 shadow-md rounded-lg mb-6">-->
-<!--    <button id="sidebarToggle" class="text-gray-600 focus:outline-none">-->
-<!--      <i class="fas fa-bars text-xl"></i>-->
-<!--    </button>-->
-<!--    <div class="flex items-center space-x-3">-->
-<!--      <div class="bg-blue-600 p-1.5 rounded-full text-white">-->
-<!--        <i class="fas fa-building text-lg"></i>-->
-<!--      </div>-->
-<!--      <span class="text-lg font-semibold text-gray-800">ImmoGestion</span>-->
-<!--    </div>-->
-<!--    <div class="w-8"></div> &lt;!&ndash; Placeholder for alignment &ndash;&gt;-->
-<!--  </header>-->
-
-  <!-- Top Bar / Page Header -->
-  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 md:mb-8">
-    <div>
-      <h1 class="text-3xl font-bold text-gray-800 mb-2 mt-16 sm:mt-0">Gestion des logements</h1>
-      <p class="text-gray-600">{{ totalLogements }} logements au total</p>
+  <header class="bg-blue-600 rounded-lg shadow-md p-4 sm:p-6 lg:p-6 mb-4 md:mb-5 mt-16 sm:mt-0">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+      <div class="flex-1">
+        <h1 class="text-xl sm:text-3xl font-extrabold text-white mb-1">Gestion des logements</h1>
+        <p class="text-blue-200 text-sm sm:text-base">{{ totalLogements }} logements au total</p>
+      </div>
+      <button id="addLogementBtn" (click)="onAddLogement()" class="mt-2 sm:mt-0 px-4 py-2 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2 transform hover:scale-105 active:scale-95 text-xs sm:text-base">
+        <i class="fas fa-plus text-sm"></i>
+        <span>Ajouter un logement</span>
+      </button>
     </div>
-    <button id="addLogementBtn" (click)="onAddLogement()" class="mt-4 sm:mt-0 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2 transform hover:scale-105 active:scale-95">
-      <i class="fas fa-plus text-lg"></i>
-      <span>Ajouter un logement</span>
-    </button>
-  </div>
+  </header>
 
-  <!-- Search and View Options -->
-  <div class="flex flex-col md:flex-row items-center justify-between mb-6 md:mb-8 space-y-4 md:space-y-0 md:space-x-4">
+  <div class="flex flex-col md:flex-row items-center justify-between mb-4 md:mb-5 space-y-4 md:space-y-0 md:space-x-4 bg-white p-3 rounded-full shadow-sm border border-gray-200">
     <div class="relative w-full md:w-1/2">
-      <input type="text" placeholder="Rechercher par numéro, type ou locataire..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+      <input type="text" placeholder="Rechercher par numéro, type ..." class="w-full pl-10 pr-4 py-2 bg-gray-100 border-none rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-sm">
+      <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
     </div>
-    <div class="flex space-x-2">
-      <button class="p-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors duration-200">
-        <i class="fas fa-th-large text-lg"></i> <!-- Grid view -->
-      </button>
-      <button class="p-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors duration-200">
-        <i class="fas fa-list text-lg"></i> <!-- List view -->
-      </button>
-    </div>
+<!--    <div class="flex space-x-2">-->
+<!--      <button class="p-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500">-->
+<!--        <i class="fas fa-th-large text-lg"></i> </button>-->
+<!--      <button class="p-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500">-->
+<!--        <i class="fas fa-list text-lg"></i> </button>-->
+<!--    </div>-->
   </div>
 
-  <!-- Logements Grid Section with Scrollbar -->
   <section id="logements-scroll-area" class="relative overflow-y-auto pr-2" style="max-height: calc(100vh - 280px);">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-4">
-      <!--
-          This is where individual logement cards will be rendered.
-          In your Angular LogementComponent's TypeScript, you'll use *ngFor here
-          to loop through your logement data and render <app-logement-card> components.
-      -->
-      <!-- Example Logement Article - You'll replace this with your <app-logement-card> component -->
-      <article  *ngFor=" let logement of logements" class="logement-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition-transform duration-200">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pb-4">
+      <article *ngFor=" let logement of logements" class="logement-card bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-transform duration-200">
         <div class="relative">
           <img [src]="logement.imageUrls && logement.imageUrls.length > 0 ? logement.imageUrls[0] : 'https://placehold.co/600x400/E0E7FF/3B82F6?text=Image+non+disponible'"
                alt="Image de l'appartement"
                class="w-full h-48 object-cover">
-          <span class="absolute top-3 right-3 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">{{logement.statut}}</span>
+          <span class="absolute top-4 right-4 text-xs font-semibold px-4 py-2 rounded-full shadow-md text-white bg-blue-400 ">
+                {{logement.statut}}
+          </span>
         </div>
         <div class="p-6">
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ logement.type }} {{logement.numeroAppartement}}</h3>
-          <p class="text-blue-600 text-xl font-bold mb-4">{{ logement.prix }} $ <span class="text-sm text-gray-500 font-normal">par mois</span></p>
+          <h3 class="text-xl font-bold text-gray-800 mb-1">{{ logement.type }} {{logement.numeroAppartement}}</h3>
+          <p class="text-blue-700 text-2xl font-extrabold mb-4">{{ logement.prix }} $ <span class="text-sm text-gray-500 font-normal">par mois</span></p>
 
-          <div class="space-y-2 text-gray-600 text-sm mb-4">
-            <p class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>{{logement.etageNumber}}ème étage</p>
-            <p class="flex items-center"><i class="fas fa-ruler-combined mr-2 text-blue-500"></i>{{ logement.surface }}m² • T3</p>
-            <p class="flex items-center"><i class="fas fa-user-alt mr-2 text-blue-500"></i>sans Locataire</p>
+          <div class="space-y-3 text-gray-600 text-sm mb-5">
+            <p class="flex items-center"><i class="fas fa-map-marker-alt mr-3 text-blue-500"></i>{{logement.etageNumber}}ème étage</p>
+            <p class="flex items-center"><i class="fas fa-ruler-combined mr-3 text-blue-500"></i>{{ logement.surface }}m²</p>
           </div>
 
           <div class="flex space-x-3">
-            <!-- Bouton Modifier -->
-           <button (click)="openEditModal(logement)"
-          class="flex-1 px-2 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors duration-200 text-sm font-medium transform hover:scale-105 active:scale-95">
+            <button (click)="openEditModal(logement)"
+                    class="flex-1 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors duration-200 text-sm font-medium transform hover:scale-105 active:scale-95">
               <i class="fas fa-edit mr-1"></i> Modifier
             </button>
-
-            <!-- Bouton Supprimer -->
-            <button  *ngIf="logement.idLogement !== undefined" (click)="onDeleteLogement(logement.idLogement!)"
-                    class="flex-1 px-1 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 text-sm font-medium transform hover:scale-105 active:scale-95">
+            <button *ngIf="logement.idLogement !== undefined" (click)="onDeleteLogement(logement.idLogement!)"
+                    class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 text-sm font-medium transform hover:scale-105 active:scale-95">
               <i class="fas fa-trash mr-1"></i> Supprimer
             </button>
           </div>
         </div>
       </article>
-
     </div>
   </section>
-
 
   <app-add-logement
     [showModal]="showAddLogementModal"
     (closeModal)="onCloseAddLogementModal()"
     (logementAdded)="onCloseAddLogementModal()"
   ></app-add-logement>
-
 
   <app-edit-logement-modal
     [logementToEdit]="selectedLogement"
@@ -106,4 +74,3 @@
     (save)="saveEditedLogement($event)">
   </app-edit-logement-modal>
 </main>
-

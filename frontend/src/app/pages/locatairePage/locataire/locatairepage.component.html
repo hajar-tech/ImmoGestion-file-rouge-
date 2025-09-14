@@ -47,13 +47,13 @@
           <div *ngFor="let incident of incidents"
                class="p-5 bg-gray-50 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
             <p class="font-medium text-gray-800 text-base mb-1">
-              <strong>Catégorie :</strong> {{ incident.categorieTache }}
+              <strong>Catégorie :</strong> {{ incident.categorie}}
             </p>
             <p class="text-gray-600 mb-2 text-sm">
               <strong>Description :</strong> {{ incident.description }}
             </p>
             <p>
-              <strong>Statut :</strong>
+              <strong>Statut : </strong>
               <span class="px-3 py-1 rounded-full text-xs font-semibold"
                     [ngClass]="{
                   'bg-yellow-200 text-yellow-800': incident.statut === 'EN_ATTENTE',
@@ -85,7 +85,9 @@
 
   <app-add-tache
     [showAddModal]="showAddModal"
-    (close)="closeModal()">
+    (close)="closeModal()"
+    (incidentAdded)="onIncidentAdded()"
+  >
   </app-add-tache>
 </div>
 

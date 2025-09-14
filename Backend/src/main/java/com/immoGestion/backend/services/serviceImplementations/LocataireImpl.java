@@ -8,9 +8,13 @@ import com.immoGestion.backend.dtos.LocataireLogementAssociationDTO;
 import com.immoGestion.backend.mapper.LocataireMapper;
 import com.immoGestion.backend.models.Locataire;
 import com.immoGestion.backend.models.Logement;
+import com.immoGestion.backend.models.Tache;
 import com.immoGestion.backend.repositories.LocataireRepository;
 import com.immoGestion.backend.repositories.LogementRepository;
+import com.immoGestion.backend.repositories.TacheRepository;
 import com.immoGestion.backend.services.serviceInterfaces.LocataireService;
+import com.immoGestion.backend.services.serviceInterfaces.TacheService;
+import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +29,18 @@ public class LocataireImpl implements LocataireService {
     private final LocataireMapper locataireMapper;
     private final PasswordEncoder passwordEncoder;
     private final LogementRepository logementRepository;
+    private final TacheRepository tacheRepository;
 
     public LocataireImpl(LocataireRepository locataireRepository,
                          LocataireMapper locataireMapper,
                          PasswordEncoder passwordEncoder,
-                         LogementRepository logementRepository) {
+                         LogementRepository logementRepository,
+                         TacheRepository tacheRepository) {
         this.locataireRepository = locataireRepository;
         this.locataireMapper = locataireMapper;
         this.passwordEncoder = passwordEncoder;
         this.logementRepository = logementRepository;
+        this.tacheRepository = tacheRepository;
     }
 
 
@@ -166,8 +173,16 @@ public class LocataireImpl implements LocataireService {
                 .orElseThrow(() -> new RuntimeException("Locataire non trouvé"));
 
         if (locataire.getLogement() != null && locataire.getLogement().getIdLogement().equals(logementId)) {
+
+//            // Détacher toutes les tâches liées
+//            List<Tache> taches = tacheRepository.findByLocataireIdAndLogementIdLogement(locataireId, logementId);
+//            for (Tache t : taches) {
+//                t.setLogement(null);
+//            }
+//            tacheRepository.saveAll(taches);
+
             // Dissocier le logement
-            locataire.setLogement(null);  // <-- juste nuller la relation
+            locataire.setLogement(null);
             locataireRepository.save(locataire);
 
             // Mettre à jour le statut du logement
