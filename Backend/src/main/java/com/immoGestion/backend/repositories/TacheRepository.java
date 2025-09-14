@@ -14,4 +14,10 @@ public interface TacheRepository extends JpaRepository<Tache , Long> {
 
     @Query("select count (t.id) from Tache t")
     int getTotalTache();
+
+//    // incidents d’un locataire dans un logement précis
+//    List<Tache> findByLocataireIdAndLogementIdLogement(Long locataireId, Long logementId);
+//
+//    // toutes les tâches par logement
+//    List<Tache> findByLogementIdLogement(Long logementId);
 }

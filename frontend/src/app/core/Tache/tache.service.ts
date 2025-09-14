@@ -23,5 +23,8 @@ export class TacheService {
     return this.http.get<TacheAffichage[]>(`${this.apiUrl}/getAll`);
   }
 
+  getIncidentsNumber():Observable<number>{
+    return this.http.get<number>(`${this.apiUrl}/total`)
+  }
 
 }

@@ -1,7 +1,7 @@
 export interface TacheAffichage {
   id: number;
   description: string;
-  categorieTache: string;
+  categorie: string;
   typeTache: string;
   statut: string;
   nomLocataire: string;

@@ -22,10 +22,6 @@
           <option value="MENAGE">Ménage</option>
           <option value="AUTRE">Autre</option>
         </select>
-        <div *ngIf="incidentForm.get('categorie')?.invalid && (incidentForm.get('categorie')?.dirty || incidentForm.get('categorie')?.touched)"
-             class="text-red-500 text-xs mt-1">
-          Un type est requis.
-        </div>
       </div>
 
       <!-- Description -->

@@ -11,6 +11,7 @@ public interface TacheMapper {
 
     @Mapping(target = "logement.idLogement", source = "logementId")
     @Mapping(target = "locataire.id", source = "locataireId")
+    @Mapping(target = "categorie", source = "categorie")
     Tache toEntity(TacheDTO dto);
 
 

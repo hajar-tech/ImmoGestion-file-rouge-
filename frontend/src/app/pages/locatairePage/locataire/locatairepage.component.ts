@@ -76,4 +76,8 @@ export class LocatairepageComponent implements OnInit{
   }
 
 
+  onIncidentAdded() {
+    this.closeModal();
+    this.loadIncidents();
+  }
 }

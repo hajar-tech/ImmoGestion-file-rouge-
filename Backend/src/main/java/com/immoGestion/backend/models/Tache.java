@@ -1,7 +1,6 @@
 package com.immoGestion.backend.models;
 
 import com.immoGestion.backend.Enums.StatusTache;
-import com.immoGestion.backend.Enums.CategorieTache;
 import com.immoGestion.backend.Enums.TypeTache;
 import jakarta.persistence.*;
 
@@ -14,8 +13,7 @@ public class Tache {
 
   private String description;
 
-  @Enumerated(EnumType.STRING)
-  private CategorieTache categorieTache;
+  private String categorie;
 
   @Enumerated(EnumType.STRING)
   private TypeTache typeTache;
@@ -49,12 +47,13 @@ public class Tache {
     this.description = description;
   }
 
-  public CategorieTache getCategorieTache() {
-    return categorieTache;
+
+  public String getCategorie() {
+    return categorie;
   }
 
-  public void setCategorieTache(CategorieTache categorieTache) {
-    this.categorieTache = categorieTache;
+  public void setCategorie(String categorie) {
+    this.categorie = categorie;
   }
 
   public TypeTache getTypeTache() {

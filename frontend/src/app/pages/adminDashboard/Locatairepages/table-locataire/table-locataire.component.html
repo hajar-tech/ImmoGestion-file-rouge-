@@ -1,67 +1,63 @@
+<main class="flex-1 p-4 md:p-8 bg-gradient-to-br from-blue-100 to-white">
 
-<div class="flex justify-between items-center">
-  <h2 class="text-2xl font-semibold mt-12 sm:mt-0">Liste des Locataires</h2>
-  <button (click)="openAddModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-12 sm:mt-0">
-    Ajouter
-  </button>
-</div>
+  <header class="bg-blue-600 rounded-lg shadow-md p-4 sm:p-6 lg:p-6 mb-4 md:mb-5 mt-16 sm:mt-0">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+      <div class="flex-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white mb-1">Liste des Locataires</h1>
+        <p class="text-blue-200 text-sm sm:text-base">Gérez vos locataires en toute simplicité</p>
+      </div>
+      <button (click)="openAddModal()" class="mt-2 sm:mt-0 px-4 py-2 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2 transform hover:scale-105 active:scale-95 text-xs sm:text-base">
+        <i class="fas fa-plus text-sm"></i>
+        <span>Ajouter un Locataire</span>
+      </button>
+    </div>
+  </header>
 
+  <div class="p-2 sm:p-4">
+    <div class="overflow-x-auto overflow-y-auto max-h-80 w-full rounded-lg shadow-lg border border-gray-200">
+      <table class="min-w-full table-auto bg-white">
+        <thead>
+        <tr class="bg-blue-200 text-gray-700 text-xs md:text-sm">
+          <th class="py-3 px-4 text-left">Nom</th>
+          <th class="py-3 px-4 text-left">Prénom</th>
+          <th class="py-3 px-4 text-left hidden sm:table-cell">Carte Identité</th>
+          <th class="py-3 px-4 text-left hidden sm:table-cell">Téléphone</th>
+          <th class="py-3 px-4 text-left hidden sm:table-cell">Situation Familiale</th>
+          <th class="py-3 px-4 text-left hidden md:table-cell">Email</th>
+          <th class="py-3 px-4 text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let locataire of locataires" class="border-b hover:bg-gray-50 text-xs md:text-sm">
+          <td class="py-3 px-4 whitespace-nowrap">{{ locataire.nom }}</td>
+          <td class="py-3 px-4 whitespace-nowrap">{{ locataire.prenom }}</td>
+          <td class="py-3 px-4 hidden sm:table-cell">{{ locataire.carteIdentite }}</td>
+          <td class="py-3 px-4 hidden sm:table-cell">{{ locataire.numeroTelephone }}</td>
+          <td class="py-3 px-4 hidden sm:table-cell">{{ locataire.situationFamiliale }}</td>
+          <td class="py-3 px-4 hidden md:table-cell">{{ locataire.email }}</td>
 
-<div class="p-6">
-
-  <div class="overflow-x-auto overflow-y-auto max-h-96 max-w-full rounded-lg shadow-lg border border-gray-200">
-    <table class="min-w-[900px] w-full bg-white">
-      <thead>
-      <tr class="bg-blue-200 text-gray-700 text-sm md:text-base">
-        <!-- En-têtes -->
-        <th class="py-3 px-6 text-left">Nom</th>
-        <th class="py-3 px-6 text-left">Prénom</th>
-        <th class="py-3 px-6 text-left">Carte Identité</th>
-        <th class="py-3 px-6 text-left">Téléphone</th>
-        <th class="py-3 px-6 text-left">Situation Familiale</th>
-        <th class="py-3 px-6 text-left">Email</th>
-<!--        <th class="py-3 px-6 text-left">Password</th>-->
-        <th class="py-3 px-6 text-center">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let locataire of locataires" class="border-b hover:bg-gray-50 text-sm md:text-base">
-        <td class="py-3 px-6">{{ locataire.nom }}</td>
-        <td class="py-3 px-6">{{ locataire.prenom }}</td>
-        <td class="py-3 px-6">{{ locataire.carteIdentite }}</td>
-        <td class="py-3 px-6 ">{{ locataire.numeroTelephone }}</td>
-        <td class="py-3 px-6">{{ locataire.situationFamiliale }}</td>
-        <td class="py-3 px-6">{{ locataire.email }}</td>
-<!--        <td class="py-3 px-6">{{ locataire.password }}</td>-->
-
-        <!-- Colonne Actions -->
-        <td class="py-3 px-6 flex space-x-2 justify-center">
-          <!-- Bouton Edit -->
-          <button
-            (click)="editLocataire(locataire)"
-            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm">
-            Éditer
-          </button>
-          <button
-            (click)="deleteLocataire(locataire.id)"
-            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm">
-            Supprimer
-          </button>
-
-          <button
-            [routerLink]="['/admin/locataireDetails', locataire.id]"
-            class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm"
-          >
-            Voir détails
-          </button>
-
-
-
-
-        </td>
-      </tr>
-      </tbody>
-    </table>
+          <td class="py-3 px-4 flex space-x-1 justify-center">
+            <button
+              (click)="editLocataire(locataire)"
+              class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md text-xs">
+              Éditer
+            </button>
+            <button
+              (click)="deleteLocataire(locataire.id)"
+              class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md text-xs">
+              Supprimer
+            </button>
+            <button
+              [routerLink]="['/admin/locataireDetails', locataire.id]"
+              class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded-md text-xs"
+            >
+              Détails
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <app-add-locataire
@@ -76,8 +72,4 @@
     (close)="onEditClose()"
     (updated)="onLocataireUpdated($event)">
   </app-edit-locataire>
-
-
-
-
-</div>
+</main>

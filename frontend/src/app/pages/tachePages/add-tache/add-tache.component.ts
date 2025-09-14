@@ -21,6 +21,7 @@ export class AddTacheComponent implements  OnInit{
 
   @Input() showAddModal : boolean = false;
   @Output() close = new EventEmitter<void>();
+  @Output() incidentAdded = new EventEmitter<void>;//new
 
   constructor(private fb : FormBuilder,
               private tacheService : TacheService ) {
@@ -51,7 +52,10 @@ export class AddTacheComponent implements  OnInit{
       this.tacheService.addTache(incidentData).subscribe({
         next : (res)=>{
           console.log(' Incident ajouté : ', res);
+
           this.close.emit();
+          this.incidentAdded.emit();//new
+
           alert('Tache ajouter avec succès ');
           this.incidentForm.reset({
             categorie: '',
