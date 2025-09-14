@@ -14,6 +14,7 @@ import {authGuard} from './core/guards/auth.guard';
 import {roleGuard} from './core/guards/role.guard';
 import {OurServiceComponent} from './pages/homePage/our-service/our-service.component';
 import {LocatairepageComponent} from './pages/locatairePage/locataire/locatairepage.component';
+import {TachesAdminComponent} from './pages/adminDashboard/Incidents/taches-admin/taches-admin.component';
 
 export const routes: Routes = [
   {path: '' , redirectTo: 'home' , pathMatch: 'full'},
@@ -29,11 +30,13 @@ export const routes: Routes = [
       children: [
          {path: '', redirectTo: 'logementAdmin', pathMatch: 'full' },
          {path : 'locataireAdmin' , component : LocataireComponent , canActivate : [authGuard, roleGuard], //si non authentifier bloqué l'accès
-           data:{roles: ['ADMIN']},},
+           data:{roles: ['ADMIN']}},
          {path : 'logementAdmin' , component : LogementComponent , canActivate : [authGuard, roleGuard], //si non authentifier bloqué l'accès
-           data:{roles: ['ADMIN']},},
+           data:{roles: ['ADMIN']}},
          {path: 'locataireDetails/:id', component: DetailLocataireComponent , canActivate : [authGuard, roleGuard], //si non authentifier bloqué l'accès
-           data:{roles: ['ADMIN']}, }
+           data:{roles: ['ADMIN']} },
+        {path: 'incidentsAdmin' , component : TachesAdminComponent , canActivate : [authGuard , roleGuard],
+        data:{roles: ['ADMIN']}}
       ]
   },
 

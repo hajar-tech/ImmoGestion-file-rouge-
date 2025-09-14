@@ -14,4 +14,6 @@ public interface TacheService {
     List<TacheDTO> getIncidentsByLocataire(Long locataireId);
 
     List<TacheAffichageDTO> getAllTaches ();
+
+    int getTotalTache();
 }

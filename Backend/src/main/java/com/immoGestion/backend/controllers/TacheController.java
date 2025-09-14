@@ -2,7 +2,6 @@ package com.immoGestion.backend.controllers;
 
 import com.immoGestion.backend.dtos.TacheAffichageDTO;
 import com.immoGestion.backend.dtos.TacheDTO;
-import com.immoGestion.backend.models.Tache;
 import com.immoGestion.backend.services.serviceInterfaces.TacheService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,4 +35,10 @@ public class TacheController {
     public List<TacheAffichageDTO> getAllTaches (){
         return tacheService.getAllTaches();
     }
+
+    @GetMapping("/total")
+    public int getTotalTache(){
+        return tacheService.getTotalTache();
+    }
+
 }

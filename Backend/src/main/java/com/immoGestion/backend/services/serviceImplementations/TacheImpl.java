@@ -72,4 +72,9 @@ public class TacheImpl implements TacheService {
               .map(tache -> tacheMapper.toAffichageDTO(tache))
               .toList();
     }
+
+    @Override
+    public int getTotalTache() {
+        return tacheRepository.getTotalTache();
+    }
 }
