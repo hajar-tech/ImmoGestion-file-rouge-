@@ -1,5 +1,6 @@
 package com.immoGestion.backend.services.serviceInterfaces;
 
+import com.immoGestion.backend.dtos.TacheAffichageDTO;
 import com.immoGestion.backend.dtos.TacheDTO;
 import org.springframework.stereotype.Service;
 
@@ -12,5 +13,5 @@ public interface TacheService {
 
     List<TacheDTO> getIncidentsByLocataire(Long locataireId);
 
-    List<TacheDTO> getAllTaches ();
+    List<TacheAffichageDTO> getAllTaches ();
 }

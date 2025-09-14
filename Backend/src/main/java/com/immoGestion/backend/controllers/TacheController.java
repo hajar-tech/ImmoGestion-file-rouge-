@@ -1,5 +1,6 @@
 package com.immoGestion.backend.controllers;
 
+import com.immoGestion.backend.dtos.TacheAffichageDTO;
 import com.immoGestion.backend.dtos.TacheDTO;
 import com.immoGestion.backend.models.Tache;
 import com.immoGestion.backend.services.serviceInterfaces.TacheService;
@@ -32,7 +33,7 @@ public class TacheController {
     }
 
     @GetMapping("/getAll")
-    public List<TacheDTO> getAllTaches (){
+    public List<TacheAffichageDTO> getAllTaches (){
         return tacheService.getAllTaches();
     }
 }

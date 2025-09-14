@@ -2,6 +2,7 @@ package com.immoGestion.backend.services.serviceImplementations;
 
 import com.immoGestion.backend.Enums.StatusTache;
 import com.immoGestion.backend.Enums.TypeTache;
+import com.immoGestion.backend.dtos.TacheAffichageDTO;
 import com.immoGestion.backend.dtos.TacheDTO;
 import com.immoGestion.backend.mapper.TacheMapper;
 import com.immoGestion.backend.models.Locataire;
@@ -65,10 +66,10 @@ public class TacheImpl implements TacheService {
     }
 
     @Override
-    public List<TacheDTO> getAllTaches() {
+    public List<TacheAffichageDTO> getAllTaches() {
         List<Tache> taches = tacheRepository.findAll();
       return taches.stream()
-              .map(tache -> tacheMapper.toDTO(tache))
+              .map(tache -> tacheMapper.toAffichageDTO(tache))
               .toList();
     }
 }
